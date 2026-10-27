@@ -1,0 +1,327 @@
+/* =====================================================================
+   CONTENUTI DEL SITO - QUESTO È L'UNICO FILE CHE DEVI MODIFICARE
+   =====================================================================
+
+   Come funziona:
+   - Ogni riga del tipo   nomeCampo: "testo",   è un'informazione del sito.
+   - Modifica SOLO il testo tra le virgolette "..." (o i numeri).
+   - Non cancellare le virgole alla fine delle righe e non togliere
+     le parentesi { } e [ ].
+   - Se nel testo ti serve una virgoletta doppia, scrivila così: \"
+   - Tutto ciò che inizia con [DA COMPILARE] è un testo di esempio
+     da sostituire con le informazioni vere.
+   - Dopo aver salvato il file, ricarica la pagina del sito per vedere
+     le modifiche (su GitHub Pages servono 1-2 minuti).
+
+   Le righe che iniziano con // oppure sono dentro /* ... * / sono
+   commenti: servono solo a spiegare e non compaiono sul sito.
+   ===================================================================== */
+
+const CONTENT = {
+
+  /* -------------------------------------------------------------------
+     ACCESSO AL SITO
+     ------------------------------------------------------------------- */
+
+  // Parola d'ordine da scrivere sull'invito. Maiuscole/minuscole non contano.
+  password: "agazzano2027",
+
+  // Indirizzo del modulo Google Apps Script che riceve le conferme (vedi GUIDA.md, punto B).
+  // Finché resta "INCOLLA_QUI_URL_APPS_SCRIPT" il modulo NON invia nulla.
+  scriptUrl: "INCOLLA_QUI_URL_APPS_SCRIPT",
+
+  /* -------------------------------------------------------------------
+     GLI SPOSI E L'EVENTO
+     ------------------------------------------------------------------- */
+
+  nomi: {
+    sposa: "Annalisa",
+    sposo: "Manolo",
+    // Come compaiono insieme nel titolo e nel piè di pagina
+    coppia: "Annalisa e Manolo"
+  },
+
+  // Data e ora dell'inizio della cerimonia, formato ANNO-MESE-GIORNO T ORE:MINUTI:SECONDI
+  // seguito dal fuso orario (+02:00 = ora legale italiana). Serve per il conto alla rovescia.
+  dataISO: "2027-05-29T17:00:00+02:00",
+
+  // Data scritta come appare sul sito
+  dataTesto: "29 maggio 2027",
+  giornoSettimana: "Sabato",
+
+  luogo: {
+    nome: "Castello di Agazzano",
+    nomeBreve: "Castello di Agazzano (PC)",
+    indirizzo: "[DA COMPILARE] Via del Castello 1, 29010 Agazzano (PC)",
+    // Testo che viene cercato su Google Maps per mostrare la mappa
+    ricercaMaps: "Castello di Agazzano, Agazzano PC"
+  },
+
+  /* -------------------------------------------------------------------
+     HOME
+     ------------------------------------------------------------------- */
+
+  home: {
+    sottotitolo: "Ci sposiamo!",
+    benvenuto: "[DA COMPILARE] Siamo felici di condividere con voi il giorno più bello della nostra vita. In questo sito trovate tutte le informazioni sull'evento e il modulo per confermare la vostra presenza.",
+    // Testo del pulsante che porta al modulo di conferma
+    pulsanteRsvp: "Conferma la tua presenza"
+  },
+
+  /* -------------------------------------------------------------------
+     LA NOSTRA STORIA (ogni riga tra virgolette è un paragrafo)
+     ------------------------------------------------------------------- */
+
+  storia: {
+    titolo: "La nostra storia",
+    paragrafi: [
+      "[DA COMPILARE] Ci siamo conosciuti in una sera d'estate di qualche anno fa, quasi per caso, grazie ad amici in comune. Da quel momento non ci siamo più lasciati.",
+      "[DA COMPILARE] Tra viaggi, cene improvvisate e tante risate abbiamo costruito giorno dopo giorno la nostra vita insieme.",
+      "[DA COMPILARE] Il 29 maggio 2027, circondati dalle persone che amiamo, diremo il nostro \"sì\" tra le mura del Castello di Agazzano. Non vediamo l'ora di festeggiare con voi!"
+    ]
+  },
+
+  /* -------------------------------------------------------------------
+     PROGRAMMA DELLA GIORNATA
+     Per aggiungere un momento copia un blocco { ... }, incollalo dopo
+     l'ultimo e cambia i testi. Ricorda la virgola tra un blocco e l'altro.
+     ------------------------------------------------------------------- */
+
+  programma: {
+    titolo: "Programma",
+    introduzione: "[DA COMPILARE] Ecco come trascorreremo insieme la giornata.",
+    tappe: [
+      {
+        ora: "17:00",
+        titolo: "Cerimonia",
+        descrizione: "Il momento del \"sì\".",
+        luogo: "Castello di Agazzano"
+      },
+      {
+        ora: "18:00",
+        titolo: "[DA COMPILARE] Aperitivo",
+        descrizione: "[DA COMPILARE] Brindisi e stuzzichini nel giardino.",
+        luogo: "Giardino del castello"
+      },
+      {
+        ora: "20:00",
+        titolo: "[DA COMPILARE] Cena",
+        descrizione: "[DA COMPILARE] Cena nelle sale del castello.",
+        luogo: "Sale interne"
+      },
+      {
+        ora: "23:00",
+        titolo: "[DA COMPILARE] Taglio della torta e festa",
+        descrizione: "[DA COMPILARE] Si balla fino a tarda notte!",
+        luogo: "Castello di Agazzano"
+      }
+    ]
+  },
+
+  /* -------------------------------------------------------------------
+     LOCATION / COME ARRIVARE
+     ------------------------------------------------------------------- */
+
+  location: {
+    titolo: "Location",
+    descrizione: "[DA COMPILARE] Il Castello di Agazzano è una dimora storica sulle prime colline piacentine, a circa 20 minuti da Piacenza.",
+    inAuto: "[DA COMPILARE] Dall'autostrada A1 o A21 uscire a Piacenza Ovest, seguire le indicazioni per Agazzano (circa 25 minuti).",
+    inTreno: "[DA COMPILARE] Stazione di Piacenza, poi taxi o navetta (circa 30 minuti).",
+    parcheggio: "[DA COMPILARE] Parcheggio gratuito disponibile accanto al castello.",
+    navetta: "[DA COMPILARE] Sarà disponibile un servizio navetta da Piacenza. Indicaci nel modulo di conferma se ne hai bisogno.",
+    pulsanteMaps: "Apri in Google Maps"
+  },
+
+  /* -------------------------------------------------------------------
+     DOVE DORMIRE
+     Per aggiungere un hotel copia un blocco { ... } e incollalo dopo
+     l'ultimo (con la virgola). Lascia "" se un dato non c'è.
+     ------------------------------------------------------------------- */
+
+  dormire: {
+    titolo: "Dove dormire",
+    introduzione: "Abbiamo selezionato alcune strutture a non più di 15 minuti dal Castello. Vi consigliamo di prenotare con anticipo: a fine maggio la zona è molto richiesta.",
+    // Per ogni struttura: nome, indirizzo, telefono, sito (può essere un link Booking) e note.
+    // Se un dato manca lascia "" : la scheda non lo mostra.
+    // Il link "Apri su Google Maps" viene creato automaticamente da nome + indirizzo.
+    hotel: [
+      {
+        nome: "I Galli – Bed & Breakfast",
+        indirizzo: "Agazzano (PC)",
+        telefono: "",
+        sito: "https://www.booking.com/searchresults.it.html?ss=I+Galli+Agazzano",
+        note: "In paese, a 2-3 minuti dal Castello. B&B nuovo, giardino e cucina in comune. Valutazione Booking 9,2/10 (80+ recensioni)."
+      },
+      {
+        nome: "Sfumature del Borgo",
+        indirizzo: "Agazzano (PC)",
+        telefono: "",
+        sito: "https://www.booking.com/searchresults.it.html?ss=Sfumature+del+Borgo+Agazzano",
+        note: "Camere curate nel centro di Agazzano. Valutazione Booking 9,2/10. A 2-3 minuti dal Castello."
+      },
+      {
+        nome: "Albergo Ristorante Il Cervo",
+        indirizzo: "Piazza Europa 20, 29010 Agazzano (PC)",
+        telefono: "+39 0523 975208",
+        sito: "https://www.albergoristoranteilcervo.it",
+        note: "Albergo con ristorante di cucina piacentina nella piazza del paese, soluzione pratica ed economica. A 2 minuti a piedi dal Castello."
+      },
+      {
+        nome: "Residenza Torre di San Martino",
+        indirizzo: "Borgo di Rivalta, 29010 Gazzola (PC)",
+        telefono: "",
+        sito: "https://www.booking.com/hotel/it/residenza-torre-di-san-martino.it.html",
+        note: "Hotel 4 stelle superior in un'antica torre davanti al Castello di Rivalta, sul Trebbia; ristorante e spa. Circa 12 minuti in auto dal Castello di Agazzano."
+      },
+      {
+        nome: "Agriturismo L'Urteia",
+        indirizzo: "Viale Marconi 56, loc. Pieve Dugliara, 29029 Rivergaro (PC)",
+        telefono: "",
+        sito: "https://www.urteia.it",
+        note: "Agriturismo con ristorante, piscina e giardino. Valutazione Booking 9,0/10 (110+ recensioni). Circa 15 minuti in auto dal Castello di Agazzano. Email: info@urteia.it"
+      }
+    ]
+  },
+
+  /* -------------------------------------------------------------------
+     LISTA NOZZE
+     ------------------------------------------------------------------- */
+
+  regalo: {
+    titolo: "Lista nozze",
+    testo: "[DA COMPILARE] Il regalo più grande è avervi con noi. Se desiderate farci un pensiero, potete contribuire al nostro viaggio di nozze.",
+    // Nome del beneficiario del bonifico
+    intestatario: "M Mizzi & A De Vincenzi",
+    // IBAN: gli spazi servono solo per leggerlo meglio, il pulsante "Copia IBAN" li toglie da solo
+    iban: "IT75 O036 6901 6006 1203 6678 152",
+    bic: "REVOITM2",
+    banca: "Revolut Bank UAB, Via Dante 7, 20123 Milano (MI), Italy",
+    // BIC della banca corrispondente: serve solo a chi fa il bonifico dall'estero
+    bicCorrispondente: "CHASDEFX",
+    valuta: "Euro",
+    causale: "Regalo di nozze Annalisa e Manolo",
+    pulsanteCopia: "Copia IBAN",
+    copiato: "IBAN copiato!"
+  },
+
+  /* -------------------------------------------------------------------
+     DOMANDE FREQUENTI
+     Per aggiungere una domanda copia un blocco { ... } e incollalo dopo
+     l'ultimo (con la virgola).
+     ------------------------------------------------------------------- */
+
+  faq: {
+    titolo: "Domande frequenti",
+    domande: [
+      {
+        domanda: "I bambini sono invitati?",
+        risposta: "[DA COMPILARE] Certo! Indicate nel modulo di conferma nome ed età dei bambini così da prevedere un menu dedicato."
+      },
+      {
+        domanda: "Posso portare un accompagnatore?",
+        risposta: "[DA COMPILARE] Gli inviti sono nominali: nel modulo indicate tutte le persone che parteciperanno."
+      },
+      {
+        domanda: "C'è il parcheggio?",
+        risposta: "[DA COMPILARE] Sì, c'è un parcheggio gratuito accanto al castello."
+      },
+      {
+        domanda: "E se piove?",
+        risposta: "[DA COMPILARE] Nessun problema: il castello dispone di ampie sale interne, la festa si svolgerà comunque."
+      },
+      {
+        domanda: "Posso pubblicare le foto sui social?",
+        risposta: "[DA COMPILARE] Vi chiediamo di non pubblicare foto della cerimonia. Per il resto della festa, taggateci volentieri!"
+      },
+      {
+        domanda: "Entro quando devo confermare?",
+        risposta: "Vi chiediamo di confermare la presenza entro il 31 marzo 2027 tramite il modulo in questo sito."
+      }
+    ]
+  },
+
+  /* -------------------------------------------------------------------
+     MODULO DI CONFERMA (RSVP)
+     ------------------------------------------------------------------- */
+
+  rsvp: {
+    titolo: "Conferma la tua presenza",
+    introduzione: "[DA COMPILARE] Compila il modulo entro la data indicata: ci aiuterai a organizzare tutto al meglio.",
+    // Data limite per confermare, formato ANNO-MESE-GIORNO
+    scadenzaISO: "2027-03-31",
+    scadenzaTesto: "31 marzo 2027",
+
+    // Numero massimo di persone (compilatore incluso) che si possono inserire
+    // in una sola conferma con il pulsante "Aggiungi partner / familiare".
+    // Raggiunto questo numero il pulsante sparisce.
+    massimoPersone: 8,
+
+    // Fasce d'età proposte quando si spunta "È un bambino o ragazzo".
+    // Servono per preparare i tavoli e i menù bimbi: puoi cambiarle o
+    // aggiungerne altre (una per riga, tra virgolette, con la virgola).
+    fasceEta: [
+      "0-2 anni",
+      "3-6 anni",
+      "7-12 anni",
+      "oltre 12 anni"
+    ],
+
+    // Opzioni del menu a tendina "Dieta / restrizioni alimentari" di ogni ospite.
+    // La prima è quella proposta di default. "Altro" ha un comportamento
+    // speciale (fa comparire un campo di testo obbligatorio): non rinominarla.
+    diete: [
+      "Nessuna",
+      "Vegetariano",
+      "Vegano",
+      "Senza glutine / celiachia",
+      "Senza lattosio",
+      "Altro"
+    ],
+
+    // Etichette delle schede del modulo
+    testiOspiti: {
+      tu: "Tu",                                  // titolo della scheda di chi compila (nome, email, telefono, dieta)
+      ospite: "Ospite",                          // titolo delle schede aggiunte, seguito dal numero (Ospite 2, 3...)
+      aggiungi: "+ Aggiungi partner / familiare",
+      rimuovi: "Rimuovi",
+      nome: "Nome e cognome",
+      bambino: "È un bambino o ragazzo",
+      fasciaEta: "Fascia d'età",
+      dieta: "Dieta / restrizioni alimentari",
+      dietaAltro: "Specifica (allergie, altre esigenze)",
+      noteAlimentari: "Note alimentari (allergie, ecc.)",
+      // Inizio della riga di riepilogo sopra il pulsante di invio,
+      // completata automaticamente: "... 3 persone: 2 adulti, 1 bambino/ragazzo"
+      riepilogo: "Confermi per"
+    },
+
+    messaggioSuccesso: "Grazie! La tua risposta è stata inviata. Non vediamo l'ora di festeggiare con te!",
+    messaggioErrore: "Ops, qualcosa è andato storto. Riprova tra qualche minuto oppure scrivici direttamente (vedi Contatti)."
+  },
+
+  /* -------------------------------------------------------------------
+     CONTATTI
+     ------------------------------------------------------------------- */
+
+  contatti: {
+    titolo: "Contatti",
+    introduzione: "Per qualsiasi domanda non esitate a scriverci o chiamarci.",
+    persone: [
+      {
+        nome: "Annalisa",
+        ruolo: "La sposa",
+        telefono: "[DA COMPILARE] 333 0000000"
+      },
+      {
+        nome: "Manolo",
+        ruolo: "Lo sposo",
+        telefono: "[DA COMPILARE] 333 1111111"
+      },
+      {
+        nome: "[DA COMPILARE] Nome Testimone",
+        ruolo: "Testimone",
+        telefono: "[DA COMPILARE] 333 2222222"
+      }
+    ]
+  }
+};
