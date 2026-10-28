@@ -28,7 +28,7 @@ const CONTENT = {
 
   // Indirizzo del modulo Google Apps Script che riceve le conferme (vedi GUIDA.md, punto B).
   // Finché resta "INCOLLA_QUI_URL_APPS_SCRIPT" il modulo NON invia nulla.
-  scriptUrl: "INCOLLA_QUI_URL_APPS_SCRIPT",
+  scriptUrl: "https://script.google.com/macros/s/AKfycbxHnue3rENw9MQ0JVEfawg-TBfFXp1xWbHVikD3yR7MK_S3LV9aiK2LbcK-KnTrz9ry/exec",
 
   /* -------------------------------------------------------------------
      GLI SPOSI E L'EVENTO
@@ -53,7 +53,8 @@ const CONTENT = {
   // uguale al save the date. I dettagli dei due luoghi sono nel blocco "luoghi" qui sotto.
   luogo: {
     nome: "Castello di Agazzano",
-    nomeBreve: "Castello di Agazzano (PC)"
+    // Riga principale sotto la data nella Home
+    nomeBreve: "Cerimonia · Chiesa di San Savino, Rezzanello"
   },
 
   /* -------------------------------------------------------------------
@@ -94,8 +95,8 @@ const CONTENT = {
 
   home: {
     sottotitolo: "Ci sposiamo!",
-    // Riga piccola sotto "Castello di Agazzano (PC)" che spiega i due luoghi
-    sottoLuogo: "Cerimonia a Rezzanello · Ricevimento al Castello di Agazzano",
+    // Seconda riga sotto la cerimonia, con il luogo del ricevimento
+    sottoLuogo: "Ricevimento · Castello di Agazzano (PC)",
     // Testo di benvenuto: lasciato vuoto su richiesta degli sposi (non compare nulla)
     benvenuto: "",
     // Testo del pulsante che porta al modulo di conferma

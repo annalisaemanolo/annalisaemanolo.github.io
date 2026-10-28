@@ -248,10 +248,10 @@ h1, h2, h3, h4 {
 .hero__subvenue {
   font-family: var(--font-serif);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.85rem;
-  color: var(--sage);
-  margin: 0.4em 0 0;
+  letter-spacing: 0.22em;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  color: var(--sage-dark);
+  margin: 0.2em 0;
 }
 .hero__welcome { max-width: 520px; margin: 1.5rem auto; }
 .countdown {
