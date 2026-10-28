@@ -245,7 +245,6 @@
     setText('location-auto', L.inAuto);
     setText('location-treno', L.inTreno);
     setText('location-parcheggio', L.parcheggio);
-    setText('location-navetta', L.navetta);
 
     var q = encodeURIComponent(V.ricercaMaps || V.nome);
     var link = $('location-maps-link');
@@ -583,7 +582,7 @@
         ospiti: []
       };
       if (partecipa.value === 'si') {
-        dati.navetta = $('f-navetta').value;
+        // Navetta non prevista: la colonna resta vuota nel foglio (compatibilità con Code.gs)
         dati.alloggio = $('f-alloggio').value;
         dati.accessibilita = $('f-accessibilita').value.trim();
         dati.canzone = $('f-canzone').value.trim();

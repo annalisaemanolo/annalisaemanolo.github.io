@@ -111,7 +111,7 @@ const CONTENT = {
 
   programma: {
     titolo: "Programma",
-    introduzione: "[DA COMPILARE] Ecco come trascorreremo insieme la giornata.",
+    introduzione: "Ecco come trascorreremo insieme la giornata.",
     tappe: [
       {
         ora: "17:00",
@@ -120,21 +120,21 @@ const CONTENT = {
         luogo: "Castello di Agazzano"
       },
       {
-        ora: "18:00",
-        titolo: "[DA COMPILARE] Aperitivo",
-        descrizione: "[DA COMPILARE] Brindisi e stuzzichini nel giardino.",
+        ora: "19:00",
+        titolo: "Aperitivo",
+        descrizione: "Brindisi e stuzzichini nel giardino, meteo permettendo.",
         luogo: "Giardino del castello"
       },
       {
-        ora: "20:00",
-        titolo: "[DA COMPILARE] Cena",
-        descrizione: "[DA COMPILARE] Cena nelle sale del castello.",
-        luogo: "Sale interne"
+        ora: "20:30",
+        titolo: "Cena",
+        descrizione: "Cena nel giardino se il meteo lo consente, altrimenti nelle sale del castello.",
+        luogo: "Giardino del castello"
       },
       {
         ora: "23:00",
-        titolo: "[DA COMPILARE] Taglio della torta e festa",
-        descrizione: "[DA COMPILARE] Si balla fino a tarda notte!",
+        titolo: "Taglio della torta e festa",
+        descrizione: "Si balla fino a tarda notte!",
         luogo: "Castello di Agazzano"
       }
     ]
@@ -147,10 +147,12 @@ const CONTENT = {
   location: {
     titolo: "Location",
     descrizione: "[DA COMPILARE] Il Castello di Agazzano è una dimora storica sulle prime colline piacentine, a circa 20 minuti da Piacenza.",
-    inAuto: "[DA COMPILARE] Dall'autostrada A1 o A21 uscire a Piacenza Ovest, seguire le indicazioni per Agazzano (circa 25 minuti).",
-    inTreno: "[DA COMPILARE] Stazione di Piacenza, poi taxi o navetta (circa 30 minuti).",
+    inAuto: "Uscita autostradale consigliata: Piacenza Nord. Da lì seguire le indicazioni per Agazzano (circa 25 minuti).",
+    inTreno: "[DA COMPILARE] Stazione di Piacenza, poi taxi (circa 30 minuti).",
     parcheggio: "[DA COMPILARE] Parcheggio gratuito disponibile accanto al castello.",
-    navetta: "[DA COMPILARE] Sarà disponibile un servizio navetta da Piacenza. Indicaci nel modulo di conferma se ne hai bisogno.",
+    // Servizio navetta: NON previsto. La voce non viene mostrata sul sito
+    // (rimossa anche la domanda dal modulo di conferma).
+    navetta: "",
     pulsanteMaps: "Apri in Google Maps"
   },
 
@@ -275,8 +277,8 @@ const CONTENT = {
     titolo: "Conferma la tua presenza",
     introduzione: "[DA COMPILARE] Compila il modulo entro la data indicata: ci aiuterai a organizzare tutto al meglio.",
     // Data limite per confermare, formato ANNO-MESE-GIORNO
-    scadenzaISO: "2027-03-31",
-    scadenzaTesto: "31 marzo 2027",
+    scadenzaISO: "2027-01-31",
+    scadenzaTesto: "31 gennaio 2027",
 
     // Numero massimo di persone (compilatore incluso) che si possono inserire
     // in una sola conferma con il pulsante "Aggiungi partner / familiare".
