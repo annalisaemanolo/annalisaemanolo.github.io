@@ -281,6 +281,99 @@ h1, h2, h3, h4 {
   .countdown { justify-content: flex-start; }
 }
 
+/* ---------- Galleria foto ---------- */
+.galleria {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 640px) { .galleria { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
+@media (min-width: 1000px) { .galleria { grid-template-columns: repeat(4, 1fr); } }
+.galleria__item {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(111,125,85,0.22);
+  border-radius: var(--radius);
+  background: var(--paper-dark);
+  overflow: hidden;
+  cursor: zoom-in;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.galleria__item img {
+  width: 100%; height: 100%;
+  object-fit: cover;          /* riempie il riquadro senza deformare la foto */
+  transition: transform 0.4s;
+}
+.galleria__item:hover, .galleria__item:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(79,90,59,0.18);
+  outline: none;
+}
+.galleria__item:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+.galleria__item:hover img { transform: scale(1.04); }
+
+/* Lightbox: foto a schermo intero */
+body.no-scroll { overflow: hidden; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(60,66,48,0.94);   /* --ink quasi opaco */
+  padding: 3.5rem 0.75rem 2.5rem;
+  touch-action: pan-y;
+}
+.lightbox__figure {
+  margin: 0;
+  max-width: 100%; max-height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  pointer-events: none;              /* il clic sullo sfondo attorno alla foto chiude */
+}
+.lightbox__figure img {
+  pointer-events: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 7rem);
+  width: auto; height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  background: var(--paper-dark);
+}
+.lightbox__contatore {
+  font-family: var(--font-serif);
+  letter-spacing: 0.18em;
+  color: var(--paper);
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+.lightbox__chiudi, .lightbox__freccia {
+  position: absolute;
+  font-family: var(--font-serif);
+  color: var(--paper);
+  background: rgba(247,244,238,0.12);
+  border: 1px solid rgba(247,244,238,0.4);
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox__chiudi:hover, .lightbox__freccia:hover,
+.lightbox__chiudi:focus-visible, .lightbox__freccia:focus-visible { background: var(--sage); outline: none; }
+.lightbox__chiudi { top: 0.75rem; right: 0.75rem; font-size: 1.9rem; }
+.lightbox__freccia { top: 50%; transform: translateY(-50%); font-size: 2.4rem; padding-bottom: 4px; }
+.lightbox__freccia--prec { left: 0.5rem; }
+.lightbox__freccia--succ { right: 0.5rem; }
+@media (min-width: 900px) {
+  .lightbox { padding: 2rem 5rem; }
+  .lightbox__freccia { width: 52px; height: 52px; }
+  .lightbox__freccia--prec { left: 1.25rem; }
+  .lightbox__freccia--succ { right: 1.25rem; }
+}
+
 /* ---------- Timeline ---------- */
 .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
 .timeline::before {
@@ -346,7 +439,7 @@ h1, h2, h3, h4 {
   font-family: ui-monospace, Consolas, monospace;
   font-size: 1.05rem;
   letter-spacing: 0.08em;
-  word-break: break-all;
+  overflow-wrap: break-word; /* l'IBAN va a capo tra i gruppi di cifre, non a metà gruppo */
 }
 .iban__nota { display: block; font-size: 0.85rem; color: var(--sage); }
 .iban .btn { margin-top: 1.25rem; }
@@ -473,7 +566,7 @@ textarea { resize: vertical; }
 
 /* ---------- Stampa ---------- */
 @media print {
-  .gate, .nav, .nav__toggle, .btn, #rsvp, .map, .countdown { display: none !important; }
+  .gate, .nav, .nav__toggle, .btn, #rsvp, .map, .countdown, .lightbox { display: none !important; }
   .site { padding-top: 0; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .section { padding: 1.2rem 0; break-inside: avoid; }

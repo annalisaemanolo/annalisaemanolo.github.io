@@ -139,13 +139,82 @@
     setInterval(aggiorna, 30000);
   }
 
-  /* ---------- Storia ---------- */
-  function initStoria() {
-    setText('storia-titolo', CONTENT.storia.titolo);
-    var box = $('storia-paragrafi');
-    clear(box);
-    CONTENT.storia.paragrafi.forEach(function (p) {
-      box.appendChild(el('p', { text: p }));
+  /* ---------- Galleria foto + lightbox ---------- */
+  function initGalleria() {
+    var G = CONTENT.galleria;
+    var foto = (G && G.foto) || [];
+    setText('galleria-titolo', G.titolo);
+    var sotto = $('galleria-sottotitolo');
+    if (G.sottotitolo) { sotto.textContent = G.sottotitolo; sotto.removeAttribute('hidden'); }
+
+    var griglia = $('galleria-griglia');
+    clear(griglia);
+
+    var box = $('lightbox');
+    var img = $('lightbox-img');
+    var contatore = $('lightbox-contatore');
+    var corrente = -1;
+    var ultimoFocus = null;
+
+    function mostra(i) {
+      corrente = (i + foto.length) % foto.length;
+      var f = foto[corrente];
+      img.src = f.src;
+      img.alt = f.alt || '';
+      contatore.textContent = (corrente + 1) + ' / ' + foto.length;
+    }
+
+    function apri(i, origine) {
+      ultimoFocus = origine || document.activeElement;
+      mostra(i);
+      box.removeAttribute('hidden');
+      document.body.classList.add('no-scroll'); // blocca lo scorrimento della pagina
+      $('lightbox-chiudi').focus();
+    }
+
+    function chiudi() {
+      box.setAttribute('hidden', '');
+      document.body.classList.remove('no-scroll');
+      img.src = '';
+      if (ultimoFocus && ultimoFocus.focus) ultimoFocus.focus();
+    }
+
+    foto.forEach(function (f, i) {
+      var btn = el('button', { type: 'button', 'class': 'galleria__item', 'aria-label': 'Apri foto ' + (i + 1) + ' di ' + foto.length }, [
+        el('img', { src: f.thumb || f.src, alt: f.alt || '', loading: 'lazy', decoding: 'async' })
+      ]);
+      btn.addEventListener('click', function () { apri(i, btn); });
+      griglia.appendChild(btn);
+    });
+
+    if (!foto.length) return;
+
+    $('lightbox-chiudi').addEventListener('click', chiudi);
+    $('lightbox-prec').addEventListener('click', function () { mostra(corrente - 1); });
+    $('lightbox-succ').addEventListener('click', function () { mostra(corrente + 1); });
+    // clic sullo sfondo (fuori dalla foto) chiude
+    box.addEventListener('click', function (ev) {
+      if (ev.target === box) chiudi();
+    });
+
+    document.addEventListener('keydown', function (ev) {
+      if (box.hasAttribute('hidden')) return;
+      if (ev.key === 'Escape') chiudi();
+      else if (ev.key === 'ArrowLeft') mostra(corrente - 1);
+      else if (ev.key === 'ArrowRight') mostra(corrente + 1);
+    });
+
+    // scorrimento con il dito (swipe) su telefono/tablet
+    var touchX = null;
+    box.addEventListener('touchstart', function (ev) {
+      touchX = ev.touches.length === 1 ? ev.touches[0].clientX : null;
+    }, { passive: true });
+    box.addEventListener('touchend', function (ev) {
+      if (touchX === null) return;
+      var dx = ev.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 40) return;
+      mostra(dx < 0 ? corrente + 1 : corrente - 1);
     });
   }
 
@@ -216,10 +285,7 @@
     setText('regalo-intestatario', R.intestatario);
     setText('regalo-iban', R.iban);
     setText('regalo-bic', R.bic);
-    setText('regalo-banca', R.banca);
-    setText('regalo-valuta', R.valuta);
-    setText('regalo-causale', R.causale);
-    setText('regalo-bic-corr', R.bicCorrispondente);
+    // R.dettagliExtra (banca, valuta, causale, BIC corrispondente) non viene mostrato: scheda volutamente essenziale
     var btn = $('regalo-copia');
     var fb = $('regalo-feedback');
     btn.textContent = R.pulsanteCopia;
@@ -609,7 +675,7 @@
     initGate();
     initNav();
     initHome();
-    initStoria();
+    initGalleria();
     initProgramma();
     initLocation();
     initDormire();

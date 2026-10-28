@@ -68,16 +68,38 @@ const CONTENT = {
     pulsanteRsvp: "Conferma la tua presenza"
   },
 
+  // La sezione "La nostra storia" è stata rimossa di proposito: al suo posto c'è la galleria qui sotto.
+
   /* -------------------------------------------------------------------
-     LA NOSTRA STORIA (ogni riga tra virgolette è un paragrafo)
+     GALLERIA FOTO
+     Le foto stanno nella cartella img/galleria. Per AGGIUNGERE una foto:
+       1. copia il file (jpg) in img/galleria, es. img/galleria/foto-12.jpg
+          (meglio se non più larga di 1600 px, così la pagina resta veloce);
+       2. aggiungi una riga { src: "...", thumb: "...", alt: "..." } in fondo
+          all'elenco "foto" qui sotto, con la virgola dopo la riga precedente.
+          "thumb" è la versione piccola mostrata nella griglia: se non ne hai
+          una, scrivi lo stesso nome di "src". "alt" è una breve descrizione
+          (serve a chi non vede l'immagine).
+     Per TOGLIERE una foto cancella la sua riga (e la virgola in più).
+     Su GitHub ricorda di caricare sia il file in img/galleria sia questo file.
      ------------------------------------------------------------------- */
 
-  storia: {
-    titolo: "La nostra storia",
-    paragrafi: [
-      "[DA COMPILARE] Ci siamo conosciuti in una sera d'estate di qualche anno fa, quasi per caso, grazie ad amici in comune. Da quel momento non ci siamo più lasciati.",
-      "[DA COMPILARE] Tra viaggi, cene improvvisate e tante risate abbiamo costruito giorno dopo giorno la nostra vita insieme.",
-      "[DA COMPILARE] Il 29 maggio 2027, circondati dalle persone che amiamo, diremo il nostro \"sì\" tra le mura del Castello di Agazzano. Non vediamo l'ora di festeggiare con voi!"
+  galleria: {
+    titolo: "Qualche foto di noi",
+    // Frase sotto il titolo: lascia "" per non mostrarla
+    sottotitolo: "",
+    foto: [
+      { src: "img/galleria/foto-01.jpg", thumb: "img/galleria/thumb-01.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-02.jpg", thumb: "img/galleria/thumb-02.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-03.jpg", thumb: "img/galleria/thumb-03.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-04.jpg", thumb: "img/galleria/thumb-04.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-05.jpg", thumb: "img/galleria/thumb-05.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-06.jpg", thumb: "img/galleria/thumb-06.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-07.jpg", thumb: "img/galleria/thumb-07.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-08.jpg", thumb: "img/galleria/thumb-08.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-09.jpg", thumb: "img/galleria/thumb-09.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-10.jpg", thumb: "img/galleria/thumb-10.jpg", alt: "Annalisa e Manolo" },
+      { src: "img/galleria/foto-11.jpg", thumb: "img/galleria/thumb-11.jpg", alt: "Annalisa e Manolo" }
     ]
   },
 
@@ -189,19 +211,24 @@ const CONTENT = {
 
   regalo: {
     titolo: "Lista nozze",
-    testo: "[DA COMPILARE] Il regalo più grande è avervi con noi. Se desiderate farci un pensiero, potete contribuire al nostro viaggio di nozze.",
+    testo: "La vostra presenza è il regalo più grande. Se desiderate farci un pensiero, ci aiuterà ad arredare la nostra nuova casa.",
+    // Sul sito compaiono SOLO intestatario, IBAN e BIC/SWIFT (più il pulsante "Copia IBAN")
     // Nome del beneficiario del bonifico
     intestatario: "M Mizzi & A De Vincenzi",
     // IBAN: gli spazi servono solo per leggerlo meglio, il pulsante "Copia IBAN" li toglie da solo
     iban: "IT75 O036 6901 6006 1203 6678 152",
     bic: "REVOITM2",
-    banca: "Revolut Bank UAB, Via Dante 7, 20123 Milano (MI), Italy",
-    // BIC della banca corrispondente: serve solo a chi fa il bonifico dall'estero
-    bicCorrispondente: "CHASDEFX",
-    valuta: "Euro",
-    causale: "Regalo di nozze Annalisa e Manolo",
     pulsanteCopia: "Copia IBAN",
-    copiato: "IBAN copiato!"
+    copiato: "IBAN copiato!",
+    // Dati NON mostrati sul sito (la scheda è stata volutamente semplificata):
+    // li teniamo qui solo come promemoria, per chi li chiede in privato.
+    dettagliExtra: {
+      banca: "Revolut Bank UAB, Via Dante 7, 20123 Milano (MI), Italy",
+      valuta: "Euro",
+      causale: "Regalo di nozze Annalisa e Manolo",
+      // BIC della banca corrispondente: serve solo a chi fa il bonifico dall'estero
+      bicCorrispondente: "CHASDEFX"
+    }
   },
 
   /* -------------------------------------------------------------------

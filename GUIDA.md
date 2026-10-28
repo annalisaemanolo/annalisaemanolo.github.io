@@ -22,6 +22,7 @@ Matrimonio/
 ├── js/content.js         ← ★ TUTTI I TESTI: l'unico file da modificare
 ├── js/main.js            ← il "motore" del sito (NON toccare)
 ├── img/save-the-date.jpg ← immagine della home
+├── img/galleria/         ← le foto della sezione "Qualche foto di noi" (vedi A.10)
 ├── apps-script/Code.gs   ← codice da incollare in Google (punto B)
 └── GUIDA.md              ← questa guida
 ```
@@ -58,11 +59,11 @@ Se dopo una modifica il sito mostra la scritta *"il file js/content.js non è st
 | `dataTesto`, `giornoSettimana` | La data scritta "in italiano" |
 | `luogo` | Nome e indirizzo del castello; `ricercaMaps` è il testo cercato su Google Maps per mostrare la mappa |
 | `home` | Sottotitolo, testo di benvenuto e testo del pulsante della home |
-| `storia` | I paragrafi della sezione "La nostra storia" |
+| `galleria` | Titolo e foto della sezione "Qualche foto di noi" (vedi A.10) |
 | `programma` | Le tappe della giornata (ora, titolo, descrizione, luogo) |
 | `location` | Come arrivare: auto, treno, parcheggio, navetta |
 | `dormire` | L'elenco degli hotel consigliati |
-| `regalo` | Testo della lista nozze, beneficiario, IBAN (puoi lasciare gli spazi: il pulsante "Copia IBAN" li toglie), BIC/SWIFT, banca, valuta, causale e BIC della banca corrispondente (solo per bonifici dall'estero) |
+| `regalo` | Testo della lista nozze, beneficiario, IBAN (puoi lasciare gli spazi: il pulsante "Copia IBAN" li toglie) e BIC/SWIFT. Sul sito compaiono solo questi tre dati; banca, valuta, causale e BIC corrispondente stanno in `dettagliExtra` e non vengono mostrati |
 | `faq` | Le domande frequenti |
 | `rsvp` | Testi del modulo di conferma, data di scadenza, numero massimo di persone per conferma (`massimoPersone`), fasce d'età dei bambini (`fasceEta`), diete (`diete`) e etichette delle schede ospite (`testiOspiti`). Vedi A.9 |
 | `contatti` | Le persone da contattare con il telefono |
@@ -137,6 +138,20 @@ Per cambiare queste impostazioni, nel blocco `rsvp` di `content.js`:
 | `fasceEta: [ "0-2 anni", "3-6 anni", "7-12 anni", "oltre 12 anni" ]` | Le fasce d'età proposte per i bambini/ragazzi. Puoi cambiarle o aggiungerne (una per riga, tra virgolette, con la virgola) |
 | `diete: [ "Nessuna", "Vegetariano", ... , "Altro" ]` | Le voci del menu "Dieta". La prima è quella proposta. **Non rinominare "Altro"**: è la voce che fa comparire il campo di testo |
 | `testiOspiti` | Le etichette delle schede ("Tu", "Ospite", "+ Aggiungi partner / familiare", ecc.) |
+
+### A.10 Aggiungere o sostituire le foto della galleria
+
+Le foto della sezione "Qualche foto di noi" stanno nella cartella `img/galleria` (`foto-01.jpg`, `foto-02.jpg`… e le versioni piccole `thumb-01.jpg`, `thumb-02.jpg`…). Per **aggiungere** una foto:
+
+1. Copia il file nella cartella `img/galleria`, ad esempio `foto-12.jpg` (meglio se non più larga di 1600 px, così la pagina resta veloce).
+2. In `js/content.js`, nel blocco `galleria` → `foto`, aggiungi una riga in fondo all'elenco (con la virgola dopo la riga precedente):
+   ```js
+   { src: "img/galleria/foto-12.jpg", thumb: "img/galleria/foto-12.jpg", alt: "Annalisa e Manolo" }
+   ```
+   `thumb` è la versione piccola mostrata nella griglia: se non ne hai una, ripeti il nome di `src`.
+3. Su GitHub carica **sia** il nuovo file in `img/galleria` **sia** `js/content.js` (Add file → Upload files, trascinando la cartella `img` e la cartella `js`).
+
+Per **sostituire** una foto basta sovrascrivere il file in `img/galleria` con lo stesso nome. Per **toglierla**, cancella la sua riga in `content.js` (e la virgola in più). L'ordine delle righe è l'ordine in cui compaiono sul sito.
 
 ---
 
