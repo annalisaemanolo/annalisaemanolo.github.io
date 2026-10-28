@@ -49,12 +49,43 @@ const CONTENT = {
   dataTesto: "29 maggio 2027",
   giornoSettimana: "Sabato",
 
+  // Luogo "principale" come compare nella home (sotto la data) e nel piè di pagina,
+  // uguale al save the date. I dettagli dei due luoghi sono nel blocco "luoghi" qui sotto.
   luogo: {
     nome: "Castello di Agazzano",
-    nomeBreve: "Castello di Agazzano (PC)",
-    indirizzo: "[DA COMPILARE] Via del Castello 1, 29010 Agazzano (PC)",
-    // Testo che viene cercato su Google Maps per mostrare la mappa
-    ricercaMaps: "Castello di Agazzano, Agazzano PC"
+    nomeBreve: "Castello di Agazzano (PC)"
+  },
+
+  /* -------------------------------------------------------------------
+     I DUE LUOGHI DELLA GIORNATA (sezione "Location")
+     La cerimonia è nella chiesa di Rezzanello; aperitivo, cena e festa
+     al Castello di Agazzano (a pochi minuti d'auto).
+     Ogni luogo ha la sua scheda con la mappa: per cambiare la mappa
+     modifica "ricercaMaps" (è il testo che viene cercato su Google Maps).
+     ------------------------------------------------------------------- */
+
+  luoghi: {
+    cerimonia: {
+      etichetta: "Cerimonia",
+      nome: "Chiesa di San Savino",
+      indirizzo: "Frazione Rezzanello, 29010 Gazzola (PC)",
+      ricercaMaps: "Chiesa di San Savino, Rezzanello, Gazzola PC",
+      orario: "ore 17:00",
+      descrizione: "La cerimonia si terrà nella chiesa di Rezzanello, a pochi minuti d'auto dal castello.",
+      parcheggio: "Libero lungo la strada."
+    },
+    ricevimento: {
+      etichetta: "Aperitivo, cena e festa",
+      nome: "Castello di Agazzano",
+      indirizzo: "Via del Castello 4, 29010 Agazzano (PC)",
+      ricercaMaps: "Castello di Agazzano, Via del Castello 4, Agazzano PC",
+      orario: "dalle 19:00",
+      descrizione: "Dopo la cerimonia ci spostiamo al Castello di Agazzano (circa 7 minuti in auto) per aperitivo, cena e festa. Il complesso è composto da due strutture e un ampio giardino-parco a terrazza che si affaccia sulla Val Luretta, terra di vigneti, cantine e vini d'eccellenza. La Rocca unisce l'architettura difensiva medievale all'eleganza della dimora signorile rinascimentale.",
+      // Link facoltativo "Scopri di più" mostrato sotto la descrizione
+      linkInfo: "https://www.castellidelducato.it/castellidelducato/castello.asp?el=rocca-e-castello-di-agazzano",
+      linkInfoTesto: "Scopri di più sul castello",
+      parcheggio: "Nelle vie davanti al cancello del castello."
+    }
   },
 
   /* -------------------------------------------------------------------
@@ -63,7 +94,10 @@ const CONTENT = {
 
   home: {
     sottotitolo: "Ci sposiamo!",
-    benvenuto: "[DA COMPILARE] Siamo felici di condividere con voi il giorno più bello della nostra vita. In questo sito trovate tutte le informazioni sull'evento e il modulo per confermare la vostra presenza.",
+    // Riga piccola sotto "Castello di Agazzano (PC)" che spiega i due luoghi
+    sottoLuogo: "Cerimonia a Rezzanello · Ricevimento al Castello di Agazzano",
+    // Testo di benvenuto: lasciato vuoto su richiesta degli sposi (non compare nulla)
+    benvenuto: "",
     // Testo del pulsante che porta al modulo di conferma
     pulsanteRsvp: "Conferma la tua presenza"
   },
@@ -111,13 +145,13 @@ const CONTENT = {
 
   programma: {
     titolo: "Programma",
-    introduzione: "Ecco come trascorreremo insieme la giornata.",
+    introduzione: "Ecco come trascorreremo insieme la giornata: la cerimonia a Rezzanello, poi tutti al Castello di Agazzano.",
     tappe: [
       {
         ora: "17:00",
         titolo: "Cerimonia",
         descrizione: "Il momento del \"sì\".",
-        luogo: "Castello di Agazzano"
+        luogo: "Chiesa di San Savino, Rezzanello"
       },
       {
         ora: "19:00",
@@ -142,17 +176,16 @@ const CONTENT = {
 
   /* -------------------------------------------------------------------
      LOCATION / COME ARRIVARE
+     (le schede dei due luoghi sono nel blocco "luoghi" più in alto;
+     qui c'è il titolo della sezione e il riquadro "Come arrivare")
      ------------------------------------------------------------------- */
 
   location: {
     titolo: "Location",
-    descrizione: "[DA COMPILARE] Il Castello di Agazzano è una dimora storica sulle prime colline piacentine, a circa 20 minuti da Piacenza.",
     inAuto: "Uscita autostradale consigliata: Piacenza Nord. Da lì seguire le indicazioni per Agazzano (circa 25 minuti).",
-    inTreno: "[DA COMPILARE] Stazione di Piacenza, poi taxi (circa 30 minuti).",
-    parcheggio: "[DA COMPILARE] Parcheggio gratuito disponibile accanto al castello.",
-    // Servizio navetta: NON previsto. La voce non viene mostrata sul sito
-    // (rimossa anche la domanda dal modulo di conferma).
-    navetta: "",
+    // Spostamento tra la chiesa e il castello. Servizio navetta NON previsto
+    // (le voci "In treno" e "Navetta" non compaiono più sul sito).
+    spostamento: "Dalla chiesa al castello sono circa 4 km (7 minuti in auto). Non è previsto un servizio navetta: vi chiediamo di organizzarvi con la vostra auto o con altri invitati.",
     pulsanteMaps: "Apri in Google Maps"
   },
 
@@ -243,28 +276,32 @@ const CONTENT = {
     titolo: "Domande frequenti",
     domande: [
       {
+        domanda: "Dove si svolge la cerimonia? E il ricevimento?",
+        risposta: "La cerimonia è alle 17:00 nella Chiesa di San Savino a Rezzanello (Gazzola). Aperitivo, cena e festa sono al Castello di Agazzano, a circa 7 minuti in auto dalla chiesa."
+      },
+      {
         domanda: "I bambini sono invitati?",
-        risposta: "[DA COMPILARE] Certo! Indicate nel modulo di conferma nome ed età dei bambini così da prevedere un menu dedicato."
+        risposta: "Certo! Indicate nel modulo di conferma nome e fascia d'età dei bambini, così da prevedere un menù dedicato."
       },
       {
         domanda: "Posso portare un accompagnatore?",
-        risposta: "[DA COMPILARE] Gli inviti sono nominali: nel modulo indicate tutte le persone che parteciperanno."
+        risposta: "Certo, basta aggiungerlo nel modulo di conferma con il pulsante \"Aggiungi partner / familiare\"."
       },
       {
         domanda: "C'è il parcheggio?",
-        risposta: "[DA COMPILARE] Sì, c'è un parcheggio gratuito accanto al castello."
+        risposta: "Sì: a Rezzanello nei pressi della chiesa, ad Agazzano nelle vie davanti al cancello del castello."
       },
       {
         domanda: "E se piove?",
-        risposta: "[DA COMPILARE] Nessun problema: il castello dispone di ampie sale interne, la festa si svolgerà comunque."
+        risposta: "Nessun problema: aperitivo e cena si spostano nelle sale interne del castello."
       },
       {
         domanda: "Posso pubblicare le foto sui social?",
-        risposta: "[DA COMPILARE] Vi chiediamo di non pubblicare foto della cerimonia. Per il resto della festa, taggateci volentieri!"
+        risposta: "Ci sarà un fotografo. Noi non pubblicheremo nulla sui social: ognuno è libero di fare come preferisce."
       },
       {
         domanda: "Entro quando devo confermare?",
-        risposta: "Vi chiediamo di confermare la presenza entro il 31 marzo 2027 tramite il modulo in questo sito."
+        risposta: "Vi chiediamo di confermare la presenza entro il 31 gennaio 2027 tramite il modulo in questo sito."
       }
     ]
   },
@@ -275,7 +312,7 @@ const CONTENT = {
 
   rsvp: {
     titolo: "Conferma la tua presenza",
-    introduzione: "[DA COMPILARE] Compila il modulo entro la data indicata: ci aiuterai a organizzare tutto al meglio.",
+    introduzione: "Compila il modulo entro la data indicata: ci aiuterai a organizzare tutto al meglio.",
     // Data limite per confermare, formato ANNO-MESE-GIORNO
     scadenzaISO: "2027-01-31",
     scadenzaTesto: "31 gennaio 2027",
@@ -313,7 +350,8 @@ const CONTENT = {
       ospite: "Ospite",                          // titolo delle schede aggiunte, seguito dal numero (Ospite 2, 3...)
       aggiungi: "+ Aggiungi partner / familiare",
       rimuovi: "Rimuovi",
-      nome: "Nome e cognome",
+      nome: "Nome",
+      cognome: "Cognome",
       bambino: "È un bambino o ragazzo",
       fasciaEta: "Fascia d'età",
       dieta: "Dieta / restrizioni alimentari",
@@ -339,17 +377,17 @@ const CONTENT = {
       {
         nome: "Annalisa",
         ruolo: "La sposa",
-        telefono: "[DA COMPILARE] 333 0000000"
+        telefono: "339 3123483"
       },
       {
         nome: "Manolo",
         ruolo: "Lo sposo",
-        telefono: "[DA COMPILARE] 333 1111111"
+        telefono: "366 7868441"
       },
       {
-        nome: "[DA COMPILARE] Nome Testimone",
+        nome: "Dania",
         ruolo: "Testimone",
-        telefono: "[DA COMPILARE] 333 2222222"
+        telefono: "348 9203138"
       }
     ]
   }

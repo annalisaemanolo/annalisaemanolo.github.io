@@ -59,6 +59,7 @@
             <h2 class="hero__names" id="home-nomi"></h2>
             <p class="hero__date" id="home-data"></p>
             <p class="hero__venue" id="home-luogo"></p>
+            <p class="hero__subvenue" id="home-sotto-luogo"></p>
             <p class="hero__welcome" id="home-benvenuto"></p>
             <div class="countdown" id="countdown" aria-live="polite">
               <div class="countdown__item"><span class="countdown__num" id="cd-giorni">0</span><span class="countdown__label">giorni</span></div>
@@ -93,22 +94,14 @@
       <section id="location" class="section">
         <div class="container">
           <h2 class="section__title" id="location-titolo"></h2>
-          <div class="location">
-            <div class="card location__card">
-              <h3 id="location-nome"></h3>
-              <p id="location-indirizzo"></p>
-              <p id="location-descrizione"></p>
-              <a id="location-maps-link" class="btn" href="#" target="_blank" rel="noopener"></a>
-              <h4>Come arrivare</h4>
-              <dl class="info-list">
-                <dt>In auto</dt><dd id="location-auto"></dd>
-                <dt>In treno</dt><dd id="location-treno"></dd>
-                <dt>Parcheggio</dt><dd id="location-parcheggio"></dd>
-              </dl>
-            </div>
-            <div class="map">
-              <iframe id="location-map" title="Mappa della location" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-            </div>
+          <!-- Due schede: cerimonia (chiesa) e ricevimento (castello), riempite da CONTENT.luoghi -->
+          <div class="luoghi" id="luoghi-lista"></div>
+          <div class="card arrivare">
+            <h4>Come arrivare</h4>
+            <dl class="info-list">
+              <dt>In auto</dt><dd id="location-auto"></dd>
+              <dt>Dalla chiesa al castello</dt><dd id="location-spostamento"></dd>
+            </dl>
           </div>
         </div>
       </section>
@@ -167,9 +160,15 @@
             <!-- Scheda di chi compila: sempre visibile; i campi alimentari compaiono solo con "Sì" -->
             <fieldset class="persona" id="rsvp-tu">
               <legend class="persona__titolo" id="rsvp-tu-titolo"></legend>
-              <div class="form__row">
-                <label for="f-nome">Nome e cognome *</label>
-                <input type="text" id="f-nome" name="nome" required autocomplete="name">
+              <div class="form__grid">
+                <div class="form__row">
+                  <label for="f-nome" id="f-nome-label">Nome *</label>
+                  <input type="text" id="f-nome" name="nome" required autocomplete="given-name">
+                </div>
+                <div class="form__row">
+                  <label for="f-cognome" id="f-cognome-label">Cognome *</label>
+                  <input type="text" id="f-cognome" name="cognome" required autocomplete="family-name">
+                </div>
               </div>
               <div class="form__grid">
                 <div class="form__row">

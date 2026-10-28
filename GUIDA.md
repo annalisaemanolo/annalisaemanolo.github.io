@@ -57,11 +57,12 @@ Se dopo una modifica il sito mostra la scritta *"il file js/content.js non è st
 | `nomi` | I nomi degli sposi come compaiono nel sito |
 | `dataISO` | Data e ora della cerimonia, per il conto alla rovescia. Formato: `"2027-05-29T17:00:00+02:00"` (anno-mese-giorno **T** ore:minuti:secondi, poi `+02:00` = ora italiana legale) |
 | `dataTesto`, `giornoSettimana` | La data scritta "in italiano" |
-| `luogo` | Nome e indirizzo del castello; `ricercaMaps` è il testo cercato su Google Maps per mostrare la mappa |
-| `home` | Sottotitolo, testo di benvenuto e testo del pulsante della home |
+| `luogo` | Il nome del castello come compare nella home sotto la data (uguale al save the date) |
+| `luoghi` | Le due schede della sezione "Location": `cerimonia` (chiesa di Rezzanello) e `ricevimento` (Castello di Agazzano). Per ognuna: `etichetta`, `nome`, `indirizzo`, `orario`, `descrizione`, `parcheggio` e `ricercaMaps`. **Per cambiare una mappa modifica `ricercaMaps`**: è il testo che viene cercato su Google Maps (es. `"Chiesa di San Savino, Rezzanello, Gazzola PC"`), lo stesso che useresti nella casella di ricerca di Maps |
+| `home` | Sottotitolo, riga "Cerimonia a Rezzanello · Ricevimento al Castello di Agazzano" (`sottoLuogo`), testo di benvenuto e testo del pulsante della home |
 | `galleria` | Titolo e foto della sezione "Qualche foto di noi" (vedi A.10) |
 | `programma` | Le tappe della giornata (ora, titolo, descrizione, luogo) |
-| `location` | Come arrivare: auto, treno, parcheggio, navetta |
+| `location` | Titolo della sezione, riquadro "Come arrivare" (`inAuto`: uscita autostradale) e `spostamento` (tragitto chiesa → castello, niente navetta). Il parcheggio di ogni luogo sta in `luoghi` |
 | `dormire` | L'elenco degli hotel consigliati |
 | `regalo` | Testo della lista nozze, beneficiario, IBAN (puoi lasciare gli spazi: il pulsante "Copia IBAN" li toglie) e BIC/SWIFT. Sul sito compaiono solo questi tre dati; banca, valuta, causale e BIC corrispondente stanno in `dettagliExtra` e non vengono mostrati |
 | `faq` | Le domande frequenti |
@@ -113,7 +114,7 @@ e sostituisci `agazzano2027` con la parola che preferisci (maiuscole/minuscole n
 
 ### A.7 Cambiare la data di scadenza delle conferme
 
-Nel blocco `rsvp` modifica sia `scadenzaISO` (formato `"2027-03-31"`) sia `scadenzaTesto` (`"31 marzo 2027"`). Ricorda di aggiornare anche la risposta alla FAQ "Entro quando devo confermare?".
+Nel blocco `rsvp` modifica sia `scadenzaISO` (formato `"2027-01-31"`) sia `scadenzaTesto` (`"31 gennaio 2027"`). Ricorda di aggiornare anche la risposta alla FAQ "Entro quando devo confermare?".
 
 ### A.8 Cambiare l'immagine della home
 
@@ -121,9 +122,9 @@ Sostituisci il file `img/save-the-date.jpg` con la tua immagine, **mantenendo es
 
 ### A.9 Come funziona il modulo di conferma (famiglie, bambini, diete)
 
-Chi compila risponde prima a "Parteciperai?" e poi compila la **scheda "Tu"** con nome e cognome, email (obbligatori) e telefono. Se ha risposto **Sì**, nella stessa scheda compaiono anche il menu **"Dieta / restrizioni alimentari"** e le **"Note alimentari"**, e sotto il pulsante **"+ Aggiungi partner / familiare"**: ogni clic aggiunge una scheda "Ospite 2", "Ospite 3"… (ognuna con un link "Rimuovi"). In ogni scheda ospite si indicano:
+Chi compila risponde prima a "Parteciperai?" e poi compila la **scheda "Tu"** con nome, cognome, email (obbligatori) e telefono. Se ha risposto **Sì**, nella stessa scheda compaiono anche il menu **"Dieta / restrizioni alimentari"** e le **"Note alimentari"**, e sotto il pulsante **"+ Aggiungi partner / familiare"**: ogni clic aggiunge una scheda "Ospite 2", "Ospite 3"… (ognuna con un link "Rimuovi"). In ogni scheda ospite si indicano:
 
-- **Nome e cognome** (obbligatorio);
+- **Nome** e **Cognome** (due campi, entrambi obbligatori);
 - la casella **"È un bambino o ragazzo"**: se spuntata compare il menu **"Fascia d'età"** (obbligatorio), così potete preparare tavoli e menù bimbi (chi compila conta sempre come adulto);
 - il menu **"Dieta / restrizioni alimentari"** (proposto su "Nessuna"); scegliendo **"Altro"** compare un campo obbligatorio "Specifica (allergie, altre esigenze)";
 - il campo libero **"Note alimentari (allergie, ecc.)"**, sempre visibile e facoltativo.
@@ -137,7 +138,7 @@ Per cambiare queste impostazioni, nel blocco `rsvp` di `content.js`:
 | `massimoPersone: 8` | Quante persone al massimo si possono inserire in una conferma (compilatore incluso). Raggiunto il numero, il pulsante "Aggiungi" sparisce |
 | `fasceEta: [ "0-2 anni", "3-6 anni", "7-12 anni", "oltre 12 anni" ]` | Le fasce d'età proposte per i bambini/ragazzi. Puoi cambiarle o aggiungerne (una per riga, tra virgolette, con la virgola) |
 | `diete: [ "Nessuna", "Vegetariano", ... , "Altro" ]` | Le voci del menu "Dieta". La prima è quella proposta. **Non rinominare "Altro"**: è la voce che fa comparire il campo di testo |
-| `testiOspiti` | Le etichette delle schede ("Tu", "Ospite", "+ Aggiungi partner / familiare", ecc.) |
+| `testiOspiti` | Le etichette delle schede ("Tu", "Ospite", "Nome", "Cognome", "+ Aggiungi partner / familiare", ecc.) |
 
 ### A.10 Aggiungere o sostituire le foto della galleria
 
@@ -208,9 +209,9 @@ Le colonne del foglio "Risposte" sono, nell'ordine:
 | Colonna | Contenuto |
 |---|---|
 | `timestamp` | Data e ora di arrivo della risposta |
-| `nome_compilatore`, `email`, `telefono` | Chi ha compilato il modulo (uguali su tutte le righe della stessa conferma) |
+| `nome_compilatore`, `cognome_compilatore`, `email`, `telefono` | Chi ha compilato il modulo (uguali su tutte le righe della stessa conferma) |
 | `partecipa` | "Sì, con gioia!" oppure "Purtroppo no" |
-| `nome_ospite` | Nome della singola persona (una riga per persona) |
+| `nome_ospite`, `cognome_ospite` | Nome e cognome della singola persona (una riga per persona) |
 | `tipo` | `adulto` oppure `bambino/ragazzo` |
 | `fascia_eta` | Fascia d'età scelta (vuota per gli adulti), es. `3-6 anni` |
 | `dieta` | Voce scelta nel menu "Dieta / restrizioni alimentari" |
@@ -343,5 +344,5 @@ Per questo motivo:
 | Il modulo dice "Form non ancora collegato" | Non hai incollato l'indirizzo in `scriptUrl` (punto B.4). |
 | Nel foglio non compaiono righe (anche se il modulo dice "Grazie!") | È il sintomo tipico di un deployment sbagliato. Fai il test rapido B.5: apri l'indirizzo dello script nel browser, deve rispondere `ok`. Se no, rifai il deployment come **nuova versione** (B.6) controllando "Chi può accedere: **Chiunque**" e che l'indirizzo finisca con `/exec`. |
 | Il modulo dice "qualcosa è andato storto" | Lo script ha ricevuto i dati ma non è riuscito a scriverli nel foglio. Controlla che il foglio esista ancora e riprova; se persiste, rifai il deployment come nuova versione (B.6). |
-| La mappa non compare | Controlla che `ricercaMaps` in `content.js` abbia un testo che Google Maps riconosce. |
+| Una mappa non compare o indica il posto sbagliato | Controlla che `ricercaMaps` del luogo (blocco `luoghi` → `cerimonia` o `ricevimento` in `content.js`) abbia un testo che Google Maps riconosce: provalo prima nella casella di ricerca di Google Maps. |
 | Il sito su GitHub non si aggiorna | Attendi 2 minuti e ricarica con Ctrl+F5. |

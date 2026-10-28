@@ -111,7 +111,9 @@
     setText('home-nomi', CONTENT.nomi.coppia);
     setText('home-data', CONTENT.giornoSettimana + ' ' + CONTENT.dataTesto);
     setText('home-luogo', CONTENT.luogo.nomeBreve);
+    setText('home-sotto-luogo', CONTENT.home.sottoLuogo);
     setText('home-benvenuto', CONTENT.home.benvenuto);
+    if (!CONTENT.home.benvenuto) $('home-benvenuto').setAttribute('hidden', '');
     setText('home-cta', CONTENT.home.pulsanteRsvp);
     $('hero-img').alt = 'Save the date: ' + CONTENT.nomi.coppia + ', ' + CONTENT.dataTesto + ', ' + CONTENT.luogo.nomeBreve;
 
@@ -237,20 +239,38 @@
   /* ---------- Location ---------- */
   function initLocation() {
     var L = CONTENT.location;
-    var V = CONTENT.luogo;
     setText('location-titolo', L.titolo);
-    setText('location-nome', V.nome);
-    setText('location-indirizzo', V.indirizzo);
-    setText('location-descrizione', L.descrizione);
     setText('location-auto', L.inAuto);
-    setText('location-treno', L.inTreno);
-    setText('location-parcheggio', L.parcheggio);
+    setText('location-spostamento', L.spostamento);
 
-    var q = encodeURIComponent(V.ricercaMaps || V.nome);
-    var link = $('location-maps-link');
-    link.textContent = L.pulsanteMaps;
-    link.href = 'https://www.google.com/maps/search/?api=1&query=' + q;
-    $('location-map').src = 'https://www.google.com/maps?q=' + q + '&output=embed';
+    // Una scheda per luogo (cerimonia e ricevimento), ciascuna con la sua mappa
+    var lista = $('luoghi-lista');
+    clear(lista);
+    [CONTENT.luoghi.cerimonia, CONTENT.luoghi.ricevimento].forEach(function (V) {
+      if (!V) return;
+      var q = encodeURIComponent(V.ricercaMaps || V.nome);
+      lista.appendChild(el('article', { 'class': 'card luogo' }, [
+        el('p', { 'class': 'luogo__etichetta', text: V.etichetta }),
+        el('h3', { text: V.nome }),
+        V.orario ? el('p', { 'class': 'luogo__orario', text: V.orario }) : null,
+        V.indirizzo ? el('p', { 'class': 'card__meta', text: V.indirizzo }) : null,
+        V.descrizione ? el('p', { text: V.descrizione }) : null,
+        V.linkInfo ? el('p', { 'class': 'card__meta' }, [
+          el('a', { href: V.linkInfo, target: '_blank', rel: 'noopener', text: V.linkInfoTesto || 'Scopri di più' })
+        ]) : null,
+        V.parcheggio ? el('p', { 'class': 'card__meta' }, ['Parcheggio: ', V.parcheggio]) : null,
+        el('div', { 'class': 'map' }, [
+          el('iframe', {
+            src: 'https://www.google.com/maps?q=' + q + '&output=embed',
+            title: 'Mappa: ' + V.nome,
+            loading: 'lazy',
+            referrerpolicy: 'no-referrer-when-downgrade',
+            allowfullscreen: ''
+          })
+        ]),
+        el('a', { 'class': 'btn', href: 'https://www.google.com/maps/search/?api=1&query=' + q, target: '_blank', rel: 'noopener', text: L.pulsanteMaps })
+      ]));
+    });
   }
 
   /* ---------- Dove dormire ---------- */
@@ -366,6 +386,7 @@
     var btnAggiungi = $('rsvp-aggiungi');
     var riepilogo = $('rsvp-riepilogo');
     var nome = $('f-nome');
+    var cognome = $('f-cognome');
     var email = $('f-email');
     var feedback = $('rsvp-feedback');
     var submit = $('rsvp-submit');
@@ -375,6 +396,8 @@
     var contatore = 0; // per generare id univoci anche dopo le rimozioni
 
     setText('rsvp-tu-titolo', T.tu);
+    setText('f-nome-label', T.nome + ' *');
+    setText('f-cognome-label', T.cognome + ' *');
     btnAggiungi.textContent = T.aggiungi;
 
     // Schede degli altri ospiti (chi compila ha la scheda fissa "Tu" in index.html)
@@ -427,10 +450,16 @@
       });
       fs.appendChild(rimuovi);
 
-      // nome
-      fs.appendChild(el('div', { 'class': 'form__row' }, [
-        el('label', { 'for': idBase + '-nome', text: T.nome + ' *' }),
-        el('input', { type: 'text', id: idBase + '-nome', 'class': 'p-nome', required: '', autocomplete: 'off' })
+      // nome e cognome (affiancati su schermo largo, uno sotto l'altro su telefono)
+      fs.appendChild(el('div', { 'class': 'form__grid' }, [
+        el('div', { 'class': 'form__row' }, [
+          el('label', { 'for': idBase + '-nome', text: T.nome + ' *' }),
+          el('input', { type: 'text', id: idBase + '-nome', 'class': 'p-nome', required: '', autocomplete: 'off' })
+        ]),
+        el('div', { 'class': 'form__row' }, [
+          el('label', { 'for': idBase + '-cognome', text: T.cognome + ' *' }),
+          el('input', { type: 'text', id: idBase + '-cognome', 'class': 'p-cognome', required: '', autocomplete: 'off' })
+        ])
       ]));
 
       // bambino/ragazzo + fascia d'età
@@ -531,12 +560,15 @@
       }
       check(partecipa, partecipa.value !== '');
       check(nome, nome.value.trim() !== '');
+      check(cognome, cognome.value.trim() !== '');
       check(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
       if (partecipa.value === 'si') {
         checkAltro(tuCibo);
         schede().forEach(function (fs) {
           var pn = fs.querySelector('.p-nome');
           check(pn, pn.value.trim() !== '');
+          var pc = fs.querySelector('.p-cognome');
+          check(pc, pc.value.trim() !== '');
           var fascia = fs.querySelector('.p-fascia');
           check(fascia, !fs.querySelector('.p-bambino').checked || fascia.value !== '');
           checkAltro(fs);
@@ -555,10 +587,11 @@
     // ATTENZIONE: le chiavi qui sotto (comprese quelle di ogni ospite) devono
     // corrispondere ESATTAMENTE alle colonne INTESTAZIONI di apps-script/Code.gs
     // (tranne "timestamp", aggiunta dallo script). Se ne cambi una, cambiala anche lì.
-    function rigaOspite(nomeOspite, bambino, fascia, box) {
+    function rigaOspite(nomeOspite, cognomeOspite, bambino, fascia, box) {
       var dieta = box.querySelector('.p-dieta').value;
       return {
         nome_ospite: nomeOspite,
+        cognome_ospite: cognomeOspite,
         tipo: bambino ? 'bambino/ragazzo' : 'adulto',
         fascia_eta: bambino ? fascia : '',
         dieta: dieta,
@@ -571,6 +604,7 @@
       var partecipaTesto = partecipa.options[partecipa.selectedIndex].text;
       var dati = {
         nome_compilatore: nome.value.trim(),
+        cognome_compilatore: cognome.value.trim(),
         email: email.value.trim(),
         telefono: $('f-telefono').value.trim(),
         partecipa: partecipaTesto,
@@ -587,10 +621,11 @@
         dati.accessibilita = $('f-accessibilita').value.trim();
         dati.canzone = $('f-canzone').value.trim();
         // Prima riga: chi compila (sempre adulto), poi gli altri ospiti
-        dati.ospiti.push(rigaOspite(nome.value.trim(), false, '', tuCibo));
+        dati.ospiti.push(rigaOspite(nome.value.trim(), cognome.value.trim(), false, '', tuCibo));
         schede().forEach(function (fs) {
           dati.ospiti.push(rigaOspite(
             fs.querySelector('.p-nome').value.trim(),
+            fs.querySelector('.p-cognome').value.trim(),
             fs.querySelector('.p-bambino').checked,
             fs.querySelector('.p-fascia').value,
             fs
