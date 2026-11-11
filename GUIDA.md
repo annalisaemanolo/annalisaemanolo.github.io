@@ -54,12 +54,12 @@ Se dopo una modifica il sito mostra la scritta *"il file js/content.js non è st
 |---|---|
 | `password` | La parola d'ordine per entrare nel sito (vedi A.6) |
 | `scriptUrl` | L'indirizzo che riceve le conferme (vedi punto B) |
-| `nomi` | I nomi degli sposi come compaiono nel sito |
-| `dataISO` | Data e ora della cerimonia, per il conto alla rovescia. Formato: `"2027-05-29T17:00:00+02:00"` (anno-mese-giorno **T** ore:minuti:secondi, poi `+02:00` = ora italiana legale) |
-| `dataTesto`, `giornoSettimana` | La data scritta "in italiano" |
-| `luogo` | Il nome del castello come compare nella home sotto la data (uguale al save the date) |
+| `nomi` | I nomi degli sposi come compaiono nel cancello d'ingresso, nel menu e nel piè di pagina. Nella home i nomi sono già scritti nell'immagine `img/save-the-date.jpg` |
+| `dataISO` | Data e ora della cerimonia, per il conto alla rovescia. Formato: `"2027-05-29T16:30:00+02:00"` (anno-mese-giorno **T** ore:minuti:secondi, poi `+02:00` = ora italiana legale) |
+| `dataTesto` | La data scritta "in italiano", usata nel piè di pagina (nella home la data è già nell'immagine) |
+| `luogo` | `nomeBreve` è la prima riga sotto l'immagine della home ("Cerimonia · Chiesa di San Savino, Rezzanello"). Il castello e la data non vanno ripetuti qui: sono già nell'immagine |
 | `luoghi` | Le due schede della sezione "Location": `cerimonia` (chiesa di Rezzanello) e `ricevimento` (Castello di Agazzano). Per ognuna: `etichetta`, `nome`, `indirizzo`, `orario`, `descrizione`, `parcheggio` e `ricercaMaps`. **Per cambiare una mappa modifica `ricercaMaps`**: è il testo che viene cercato su Google Maps (es. `"Chiesa di San Savino, Rezzanello, Gazzola PC"`), lo stesso che useresti nella casella di ricerca di Maps |
-| `home` | Sottotitolo, riga "Cerimonia a Rezzanello · Ricevimento al Castello di Agazzano" (`sottoLuogo`), testo di benvenuto e testo del pulsante della home |
+| `home` | Seconda riga sotto l'immagine ("Ricevimento · Castello di Agazzano (PC)", `sottoLuogo`), testo di benvenuto e testo del pulsante della home |
 | `galleria` | Titolo e foto della sezione "Qualche foto di noi" (vedi A.10) |
 | `programma` | Le tappe della giornata (ora, titolo, descrizione, luogo) |
 | `location` | Titolo della sezione, riquadro "Come arrivare" (`inAuto`: uscita autostradale) e `spostamento` (tragitto chiesa → castello, niente navetta). Il parcheggio di ogni luogo sta in `luoghi` |
@@ -118,7 +118,7 @@ Nel blocco `rsvp` modifica sia `scadenzaISO` (formato `"2027-01-31"`) sia `scade
 
 ### A.8 Cambiare l'immagine della home
 
-Sostituisci il file `img/save-the-date.jpg` con la tua immagine, **mantenendo esattamente lo stesso nome** `save-the-date.jpg`.
+Sostituisci il file `img/save-the-date.jpg` con la tua immagine, **mantenendo esattamente lo stesso nome** `save-the-date.jpg`. Tieni presente che nella home i nomi, la data e il castello compaiono **solo dentro l'immagine** (il sito non li riscrive sotto): se la cambi, assicurati che la nuova immagine li contenga.
 
 ### A.9 Come funziona il modulo di conferma (famiglie, bambini, diete)
 

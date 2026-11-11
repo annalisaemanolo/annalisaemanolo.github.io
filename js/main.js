@@ -107,9 +107,6 @@
 
   /* ---------- Home + conto alla rovescia ---------- */
   function initHome() {
-    setText('home-sottotitolo', CONTENT.home.sottotitolo);
-    setText('home-nomi', CONTENT.nomi.coppia);
-    setText('home-data', CONTENT.giornoSettimana + ' ' + CONTENT.dataTesto);
     setText('home-luogo', CONTENT.luogo.nomeBreve);
     setText('home-sotto-luogo', CONTENT.home.sottoLuogo);
     setText('home-benvenuto', CONTENT.home.benvenuto);
@@ -231,7 +228,7 @@
         el('span', { 'class': 'timeline__ora', text: t.ora }),
         el('h3', { 'class': 'timeline__titolo', text: t.titolo }),
         t.luogo ? el('p', { 'class': 'timeline__luogo', text: t.luogo }) : null,
-        el('p', { text: t.descrizione })
+        t.descrizione ? el('p', { text: t.descrizione }) : null
       ]));
     });
   }

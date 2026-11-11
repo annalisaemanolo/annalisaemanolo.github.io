@@ -37,23 +37,22 @@ const CONTENT = {
   nomi: {
     sposa: "Annalisa",
     sposo: "Manolo",
-    // Come compaiono insieme nel titolo e nel piè di pagina
+    // Come compaiono insieme nel cancello d'ingresso e nel piè di pagina
+    // (nella home i nomi sono già scritti nell'immagine)
     coppia: "Annalisa e Manolo"
   },
 
   // Data e ora dell'inizio della cerimonia, formato ANNO-MESE-GIORNO T ORE:MINUTI:SECONDI
   // seguito dal fuso orario (+02:00 = ora legale italiana). Serve per il conto alla rovescia.
-  dataISO: "2027-05-29T17:00:00+02:00",
+  dataISO: "2027-05-29T16:30:00+02:00",
 
-  // Data scritta come appare sul sito
+  // Data scritta come appare nel piè di pagina (nella home è già nell'immagine)
   dataTesto: "29 maggio 2027",
-  giornoSettimana: "Sabato",
 
-  // Luogo "principale" come compare nella home (sotto la data) e nel piè di pagina,
-  // uguale al save the date. I dettagli dei due luoghi sono nel blocco "luoghi" qui sotto.
+  // Luogo "principale" della giornata. I dettagli dei due luoghi sono nel blocco "luoghi" qui sotto.
   luogo: {
     nome: "Castello di Agazzano",
-    // Riga principale sotto la data nella Home
+    // Prima riga sotto l'immagine nella Home
     nomeBreve: "Cerimonia · Chiesa di San Savino, Rezzanello"
   },
 
@@ -71,7 +70,7 @@ const CONTENT = {
       nome: "Chiesa di San Savino",
       indirizzo: "Frazione Rezzanello, 29010 Gazzola (PC)",
       ricercaMaps: "Chiesa di San Savino, Rezzanello, Gazzola PC",
-      orario: "ore 17:00",
+      orario: "ore 16:30",
       descrizione: "La cerimonia si terrà nella chiesa di Rezzanello, a pochi minuti d'auto dal castello.",
       parcheggio: "Libero lungo la strada."
     },
@@ -94,8 +93,7 @@ const CONTENT = {
      ------------------------------------------------------------------- */
 
   home: {
-    sottotitolo: "Ci sposiamo!",
-    // Seconda riga sotto la cerimonia, con il luogo del ricevimento
+    // Seconda riga sotto l'immagine, con il luogo del ricevimento
     sottoLuogo: "Ricevimento · Castello di Agazzano (PC)",
     // Testo di benvenuto: lasciato vuoto su richiesta degli sposi (non compare nulla)
     benvenuto: "",
@@ -149,27 +147,27 @@ const CONTENT = {
     introduzione: "Ecco come trascorreremo insieme la giornata: la cerimonia a Rezzanello, poi tutti al Castello di Agazzano.",
     tappe: [
       {
-        ora: "17:00",
+        ora: "16:30",
         titolo: "Cerimonia",
-        descrizione: "Il momento del \"sì\".",
+        descrizione: "",
         luogo: "Chiesa di San Savino, Rezzanello"
       },
       {
         ora: "19:00",
         titolo: "Aperitivo",
-        descrizione: "Brindisi e stuzzichini nel giardino, meteo permettendo.",
-        luogo: "Giardino del castello"
+        descrizione: "",
+        luogo: "Castello di Agazzano"
       },
       {
         ora: "20:30",
         titolo: "Cena",
-        descrizione: "Cena nel giardino se il meteo lo consente, altrimenti nelle sale del castello.",
-        luogo: "Giardino del castello"
+        descrizione: "",
+        luogo: "Castello di Agazzano"
       },
       {
-        ora: "23:00",
+        ora: "22:30",
         titolo: "Taglio della torta e festa",
-        descrizione: "Si balla fino a tarda notte!",
+        descrizione: "",
         luogo: "Castello di Agazzano"
       }
     ]
@@ -278,7 +276,7 @@ const CONTENT = {
     domande: [
       {
         domanda: "Dove si svolge la cerimonia? E il ricevimento?",
-        risposta: "La cerimonia è alle 17:00 nella Chiesa di San Savino a Rezzanello (Gazzola). Aperitivo, cena e festa sono al Castello di Agazzano, a circa 7 minuti in auto dalla chiesa."
+        risposta: "La cerimonia è alle 16:30 nella Chiesa di San Savino a Rezzanello (Gazzola). Aperitivo, cena e festa sono al Castello di Agazzano, a circa 7 minuti in auto dalla chiesa."
       },
       {
         domanda: "I bambini sono invitati?",
