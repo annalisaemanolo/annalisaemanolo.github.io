@@ -109,10 +109,13 @@
   function initHome() {
     setText('home-luogo', CONTENT.luogo.nomeBreve);
     setText('home-sotto-luogo', CONTENT.home.sottoLuogo);
+    // Se i testi sono vuoti (perché già scritti nell'immagine) le righe non occupano spazio
+    if (!CONTENT.luogo.nomeBreve) $('home-luogo').setAttribute('hidden', '');
+    if (!CONTENT.home.sottoLuogo) $('home-sotto-luogo').setAttribute('hidden', '');
     setText('home-benvenuto', CONTENT.home.benvenuto);
     if (!CONTENT.home.benvenuto) $('home-benvenuto').setAttribute('hidden', '');
     setText('home-cta', CONTENT.home.pulsanteRsvp);
-    $('hero-img').alt = 'Save the date: ' + CONTENT.nomi.coppia + ', ' + CONTENT.dataTesto + ', ' + CONTENT.luogo.nomeBreve;
+    $('hero-img').alt = CONTENT.nomi.coppia + ', ' + CONTENT.dataTesto + '. Cerimonia: ' + CONTENT.luoghi.cerimonia.nome + ', Rezzanello. Ricevimento: ' + CONTENT.luoghi.ricevimento.nome;
 
     var target = new Date(CONTENT.dataISO).getTime();
     var countdown = $('countdown');

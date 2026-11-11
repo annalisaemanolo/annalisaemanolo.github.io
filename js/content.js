@@ -52,8 +52,9 @@ const CONTENT = {
   // Luogo "principale" della giornata. I dettagli dei due luoghi sono nel blocco "luoghi" qui sotto.
   luogo: {
     nome: "Castello di Agazzano",
-    // Prima riga sotto l'immagine nella Home
-    nomeBreve: "Cerimonia · Chiesa di San Savino, Rezzanello"
+    // Prima riga sotto l'immagine nella Home. Lasciata vuota: cerimonia e
+    // ricevimento sono già scritti nell'immagine del save the date.
+    nomeBreve: ""
   },
 
   /* -------------------------------------------------------------------
@@ -93,8 +94,8 @@ const CONTENT = {
      ------------------------------------------------------------------- */
 
   home: {
-    // Seconda riga sotto l'immagine, con il luogo del ricevimento
-    sottoLuogo: "Ricevimento · Castello di Agazzano (PC)",
+    // Seconda riga sotto l'immagine (vuota: vedi nomeBreve sopra)
+    sottoLuogo: "",
     // Testo di benvenuto: lasciato vuoto su richiesta degli sposi (non compare nulla)
     benvenuto: "",
     // Testo del pulsante che porta al modulo di conferma
