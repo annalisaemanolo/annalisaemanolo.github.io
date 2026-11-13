@@ -13,7 +13,7 @@
   --white: #fffdf9;
   --error: #9b3b2e;
   --font-serif: "EB Garamond", Georgia, "Times New Roman", serif;
-  --font-script: "Great Vibes", "Brush Script MT", cursive;
+  --font-script: "Allura", "Brush Script MT", cursive;
   --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
   --nav-h: 60px;
   --radius: 6px;
@@ -105,7 +105,7 @@ h1, h2, h3, h4 {
 }
 .gate__names {
   font-family: var(--font-script);
-  font-size: 3rem;
+  font-size: 3.45rem;
   color: var(--sage);
   margin: 0 0 0.5rem;
   line-height: 1.1;
@@ -144,7 +144,7 @@ h1, h2, h3, h4 {
 }
 .nav__brand {
   font-family: var(--font-script);
-  font-size: 1.7rem;
+  font-size: 2rem;
   color: var(--sage);
   text-decoration: none;
 }
