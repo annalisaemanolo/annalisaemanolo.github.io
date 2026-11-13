@@ -8,6 +8,7 @@ Questa guida spiega, passo per passo, come:
 - **D.** usare un nome di dominio personalizzato (es. `annalisaemanolo.it`)
 - **E.** provare il sito sul tuo computer
 - **F.** avvertenza importante sulla password
+- **G.** ricevere le foto degli ospiti (pagina `foto.html` + QR code sui tavoli)
 
 Non servono competenze tecniche. Dove c'è scritto "clicca", è letteralmente un clic.
 
@@ -18,12 +19,17 @@ Non servono competenze tecniche. Dove c'è scritto "clicca", è letteralmente un
 ```
 Matrimonio/
 ├── index.html            ← la pagina del sito (NON toccare)
+├── foto.html             ← pagina per gli ospiti: carica foto/video (senza password, vedi G)
+├── foto/index.html       ← rimando per l'indirizzo corto .../foto stampato sui segnatavolo
 ├── css/style.css         ← l'aspetto grafico (NON toccare)
 ├── js/content.js         ← ★ TUTTI I TESTI: l'unico file da modificare
 ├── js/main.js            ← il "motore" del sito (NON toccare)
+├── js/foto.js            ← il "motore" della pagina foto.html (NON toccare)
 ├── img/save-the-date.jpg ← immagine della home
 ├── img/galleria/         ← le foto della sezione "Qualche foto di noi" (vedi A.10)
-├── apps-script/Code.gs   ← codice da incollare in Google (punto B)
+├── apps-script/Code.gs   ← codice da incollare in Google per le conferme (punto B)
+├── apps-script/FotoUpload.gs ← codice da incollare in Google per le foto (punto G)
+├── stampa/               ← QR code (qr-foto.png) e segnatavolo da stampare (segnatavolo-qr.pdf)
 └── GUIDA.md              ← questa guida
 ```
 
@@ -54,6 +60,7 @@ Se dopo una modifica il sito mostra la scritta *"il file js/content.js non è st
 |---|---|
 | `password` | La parola d'ordine per entrare nel sito (vedi A.6) |
 | `scriptUrl` | L'indirizzo che riceve le conferme (vedi punto B) |
+| `fotoScriptUrl` | L'indirizzo del secondo script, quello che riceve le foto degli ospiti (vedi punto G) |
 | `nomi` | I nomi degli sposi come compaiono nel cancello d'ingresso, nel menu e nel piè di pagina. Nella home i nomi sono già scritti nell'immagine `img/save-the-date.jpg` |
 | `dataISO` | Data e ora della cerimonia, per il conto alla rovescia. Formato: `"2027-05-29T16:30:00+02:00"` (anno-mese-giorno **T** ore:minuti:secondi, poi `+02:00` = ora italiana legale) |
 | `dataTesto` | La data scritta "in italiano", usata nel piè di pagina (nella home la data è già nell'immagine) |
@@ -68,6 +75,7 @@ Se dopo una modifica il sito mostra la scritta *"il file js/content.js non è st
 | `faq` | Le domande frequenti |
 | `rsvp` | Testi del modulo di conferma, data di scadenza, numero massimo di persone per conferma (`massimoPersone`), fasce d'età dei bambini (`fasceEta`), diete (`diete`) e etichette delle schede ospite (`testiOspiti`). Vedi A.9 |
 | `contatti` | Le persone da contattare con il telefono |
+| `fotoOspiti` | I testi della pagina `foto.html` (titolo, pulsanti, messaggi) e il limite dei video `videoMaxMB` (vedi punto G) |
 
 ### A.4 Aggiungere un hotel
 
@@ -247,8 +255,8 @@ Ogni volta che cambi `Code.gs` nell'editor devi fare **Esegui il deployment → 
 ### C.3 Caricare i file
 
 1. Nella pagina del repository clicca **Add file** → **Upload files**.
-2. Apri la cartella `Matrimonio` sul computer, seleziona **tutto il contenuto** (`index.html`, `GUIDA.md`, le cartelle `css`, `js`, `img`, `apps-script`) e **trascinalo** nella pagina del browser.
-   Non caricare il file "WhatsApp Image ..." originale: non serve.
+2. Apri la cartella `Matrimonio` sul computer, seleziona **tutto il contenuto** (`index.html`, `foto.html`, `GUIDA.md`, le cartelle `css`, `js`, `img`, `foto`, `apps-script`) e **trascinalo** nella pagina del browser.
+   Non caricare i file "WhatsApp Image ..." originali né la cartella `stampa`: non servono online.
 3. Attendi che tutti i file risultino caricati, poi in basso clicca **Commit changes**.
 
 ### C.4 Attivare il sito
@@ -267,6 +275,10 @@ Ogni volta che cambi `Code.gs` nell'editor devi fare **Esegui il deployment → 
 4. Dopo 1-2 minuti il sito è aggiornato.
 
 In alternativa, modifica il file sul computer e ricaricalo con **Add file → Upload files**: il nuovo file sostituisce il vecchio.
+
+### C.6 Far vedere subito la nuova versione (il numero `?v=`)
+
+I telefoni e i computer tengono una copia dei file del sito per non riscaricarli ogni volta: dopo un aggiornamento qualcuno potrebbe vedere ancora la versione vecchia. Per evitarlo, in `index.html` (e in `foto.html`) le righe che caricano `css/style.css`, `js/content.js` e `js/main.js` finiscono con `?v=3`. **Ogni volta che ricarichi file su GitHub, aumenta quel numero** (`?v=4`, poi `?v=5`…) in tutte le righe in cui compare, in `index.html` e `foto.html`, e ricarica anche questi due file. Il numero di per sé non significa nulla: basta che cambi.
 
 ---
 
@@ -336,6 +348,71 @@ Per questo motivo:
 
 ---
 
+## G. Foto degli ospiti (pagina `foto.html` + QR code sui tavoli)
+
+Gli ospiti inquadrano il QR code sul tavolo, si apre la pagina `https://annalisaemanolo.github.io/foto.html` (senza parola d'ordine) e con il pulsante **"Scegli foto o video"** scelgono le foto dal telefono. Le foto vengono rimpicciolite dal telefono stesso (max 2048 px) e salvate **nella tua cartella di Google Drive**. Gli ospiti **non hanno bisogno di nessun account**: a scrivere su Drive è un piccolo programma Google (Apps Script) che gira con il tuo account, come quello delle conferme. È un progetto **separato** da quello dell'RSVP: non toccare `Code.gs`.
+
+### G.1 La cartella di Google Drive
+
+La cartella è già stata creata: [https://drive.google.com/drive/folders/1SAPXli4WzIdB7KFXF5c9CFUog1eO8UrX](https://drive.google.com/drive/folders/1SAPXli4WzIdB7KFXF5c9CFUog1eO8UrX). Il suo **ID** è la parte dell'indirizzo dopo `folders/`, cioè `1SAPXli4WzIdB7KFXF5c9CFUog1eO8UrX`, ed è già scritto in `apps-script/FotoUpload.gs` nella riga `CARTELLA_ID`. Non serve condividere la cartella con nessuno.
+
+Se un giorno vuoi usare un'altra cartella: aprila su Drive, copia dalla barra degli indirizzi la sigla dopo `folders/` e incollala in `FotoUpload.gs` al posto di quella attuale (tra le virgolette), poi rifai il deployment come nuova versione (G.5).
+
+### G.2 Creare il progetto Apps Script
+
+1. Vai su [script.google.com](https://script.google.com) con **lo stesso account Google** della cartella Drive.
+2. Clicca **Nuovo progetto** (in alto a sinistra).
+3. Nell'editor c'è un file `Codice.gs` con `function myFunction() {...}`: **cancella tutto**.
+4. Sul computer apri `apps-script/FotoUpload.gs` con Blocco note, seleziona tutto (Ctrl+A), copia (Ctrl+C), torna nell'editor e incolla (Ctrl+V).
+5. Controlla che la riga `var CARTELLA_ID = '1SAPXli4WzIdB7KFXF5c9CFUog1eO8UrX';` contenga l'ID della tua cartella.
+6. Clicca il **dischetto** (Salva). In alto a sinistra clicca su "Progetto senza titolo" e chiamalo **Foto matrimonio**.
+
+### G.3 Pubblicare lo script
+
+1. In alto a destra: **Esegui il deployment** → **Nuovo deployment**.
+2. Ingranaggio ⚙️ accanto a "Seleziona tipo" → **Applicazione web**.
+3. Compila:
+   - **Descrizione**: `Foto ospiti`
+   - **Esegui come**: **Me**
+   - **Chi può accedere**: **Chiunque** (⚠ non "Chiunque con un account Google": gli ospiti non sono loggati)
+4. **Esegui il deployment**.
+5. Google chiede il permesso di usare **Google Drive**: **Autorizza accesso** → scegli l'account → nella schermata "Google non ha verificato questa app" clicca **Avanzate** → **Vai a Foto matrimonio (non sicuro)** → **Consenti**. È normale: l'app è la tua.
+6. Copia l'**URL dell'applicazione web** (inizia con `https://script.google.com/macros/s/` e finisce con `/exec`).
+
+### G.4 Collegare la pagina
+
+1. Apri `js/content.js` e trova:
+   ```js
+   fotoScriptUrl: "INCOLLA_QUI_URL_APPS_SCRIPT_FOTO",
+   ```
+2. Sostituisci `INCOLLA_QUI_URL_APPS_SCRIPT_FOTO` con l'indirizzo copiato (lascia le virgolette) e salva.
+3. **Prova**: fai doppio clic su `foto.html`. Finché l'indirizzo non è impostato la pagina mostra *"Caricamento non ancora attivo"* con il pulsante grigio; con l'indirizzo giusto il pulsante è verde. Scegli una foto, clicca **"Invia 1 file"**: accanto al nome compare "Caricamento…" e poi **"Caricato ✓"**, e dopo qualche secondo il file è nella cartella Drive con un nome del tipo `20270529-213015_Mario_IMG_1234.jpg` (data e ora, nome scritto dall'ospite o "ospite", nome originale). Cancella il file di prova.
+4. Ricarica su GitHub `js/content.js`, `foto.html`, `js/foto.js` e la cartella `foto` (vedi C.3 e C.6), poi riprova dal telefono aprendo `https://annalisaemanolo.github.io/foto`.
+
+### G.5 Se modifichi `FotoUpload.gs` in futuro
+
+Come per l'RSVP: **Esegui il deployment → Gestisci deployment → ✏️ → Versione: Nuova versione → Esegui il deployment**. L'indirizzo resta lo stesso.
+
+### G.6 Stampare i segnatavolo con il QR code
+
+Nella cartella `stampa` trovi:
+
+- `segnatavolo-qr.pdf`: un foglio **A4 con 4 cartoncini A6** (nomi, "Condividete le vostre foto", QR code, indirizzo corto `annalisaemanolo.github.io/foto`, istruzione per inquadrare). Aprilo e stampalo con **Ctrl+P** su carta un po' spessa (avorio o bianca), **scala 100 %** / "Dimensione effettiva", poi ritaglia lungo le linee tratteggiate. Un foglio = 4 tavoli.
+- `qr-foto.png`: il solo QR code (1200×1200 px, verde salvia su carta) se vuoi inserirlo in un menù, nel libretto o in un altro cartoncino. Non rimpicciolirlo sotto i 3 cm di lato.
+- `segnatavolo-qr.html`: la versione modificabile del foglio (doppio clic per aprirla nel browser e Ctrl+P per ristamparla, anche dopo aver cambiato i testi).
+
+Il QR code porta a `https://annalisaemanolo.github.io/foto.html`; anche l'indirizzo corto `annalisaemanolo.github.io/foto` scritto sul cartoncino funziona (lo fa funzionare la cartella `foto` del sito). Prova a inquadrarlo con il telefono prima di stampare 20 copie.
+
+### G.7 Cosa sapere
+
+- **Video**: vengono inviati così come sono; sopra i **40 MB** la pagina li rifiuta con il messaggio *"Video troppo grande: inviatecelo su WhatsApp"* (il limite si cambia in `content.js`, `fotoOspiti` → `videoMaxMB`, ma Google non accetta file molto più grandi). Lo script rifiuta comunque file sopra i 45 MB.
+- **Foto**: vengono ridotte a 2048 px sul lato lungo (ottime per stampe fino a 20×30) e pesano 0,5-1 MB ciascuna. Se il telefono non riesce a ridurle (alcuni formati HEIC) invia l'originale.
+- I file arrivano nella cartella Drive uno alla volta; su Drive puoi poi ordinarli per nome (= per data e ora di caricamento) o per chi li ha caricati.
+- La pagina `foto.html` **non ha parola d'ordine** (l'indirizzo è sui tavoli, non sugli inviti) e non è collegata dal menu del sito. Nelle FAQ c'è la domanda "Come possiamo condividere le foto della festa?".
+- Lo spazio usato è quello del tuo Google Drive (15 GB gratuiti): 300 foto ≈ 300 MB.
+
+---
+
 ## Problemi comuni
 
 | Problema | Soluzione |
@@ -345,4 +422,6 @@ Per questo motivo:
 | Nel foglio non compaiono righe (anche se il modulo dice "Grazie!") | È il sintomo tipico di un deployment sbagliato. Fai il test rapido B.5: apri l'indirizzo dello script nel browser, deve rispondere `ok`. Se no, rifai il deployment come **nuova versione** (B.6) controllando "Chi può accedere: **Chiunque**" e che l'indirizzo finisca con `/exec`. |
 | Il modulo dice "qualcosa è andato storto" | Lo script ha ricevuto i dati ma non è riuscito a scriverli nel foglio. Controlla che il foglio esista ancora e riprova; se persiste, rifai il deployment come nuova versione (B.6). |
 | Una mappa non compare o indica il posto sbagliato | Controlla che `ricercaMaps` del luogo (blocco `luoghi` → `cerimonia` o `ricevimento` in `content.js`) abbia un testo che Google Maps riconosce: provalo prima nella casella di ricerca di Google Maps. |
-| Il sito su GitHub non si aggiorna | Attendi 2 minuti e ricarica con Ctrl+F5. |
+| Il sito su GitHub non si aggiorna | Attendi 2 minuti e ricarica con Ctrl+F5. Se continua a mostrare la versione vecchia, aumenta il numero `?v=` in `index.html` e `foto.html` (C.6). |
+| `foto.html` dice "Caricamento non ancora attivo" | Non hai incollato l'indirizzo in `fotoScriptUrl` (G.4). |
+| Su `foto.html` i file finiscono in "Errore" | Apri l'indirizzo di `fotoScriptUrl` nel browser: deve rispondere `ok`. Se no, rifai il deployment (G.3) con "Chi può accedere: Chiunque". Se risponde `ok` ma le foto non arrivano, controlla `CARTELLA_ID` in `FotoUpload.gs` e che la cartella Drive esista ancora, poi nuova versione (G.5). |

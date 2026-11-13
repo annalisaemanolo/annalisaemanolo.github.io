@@ -30,6 +30,12 @@ const CONTENT = {
   // Finché resta "INCOLLA_QUI_URL_APPS_SCRIPT" il modulo NON invia nulla.
   scriptUrl: "https://script.google.com/macros/s/AKfycbxHnue3rENw9MQ0JVEfawg-TBfFXp1xWbHVikD3yR7MK_S3LV9aiK2LbcK-KnTrz9ry/exec",
 
+  // Indirizzo del SECONDO Apps Script, quello che riceve le foto degli ospiti
+  // dalla pagina foto.html e le salva su Google Drive (vedi GUIDA.md, punto G).
+  // Finché resta "INCOLLA_QUI_URL_APPS_SCRIPT_FOTO" la pagina mostra
+  // "Caricamento non ancora attivo" e il pulsante è disabilitato.
+  fotoScriptUrl: "https://script.google.com/macros/s/AKfycbxfKdAmshNN-jCc4ofBvQpTZdLnTaEjvfJWcC5dBH9t-nw-lvTgsqwfVeeuBtlhlLC2Kg/exec",
+
   /* -------------------------------------------------------------------
      GLI SPOSI E L'EVENTO
      ------------------------------------------------------------------- */
@@ -302,8 +308,39 @@ const CONTENT = {
       {
         domanda: "Entro quando devo confermare?",
         risposta: "Vi chiediamo di confermare la presenza entro il 31 gennaio 2027 tramite il modulo in questo sito."
+      },
+      {
+        domanda: "Come possiamo condividere le foto della festa?",
+        risposta: "Ai tavoli troverete un QR code: inquadratelo con il telefono e caricate foto e video direttamente nel nostro album, senza bisogno di account."
       }
     ]
+  },
+
+  /* -------------------------------------------------------------------
+     FOTO DEGLI OSPITI (pagina foto.html, raggiunta dal QR code sui tavoli)
+     Testi della pagina in cui gli ospiti caricano foto e video della
+     giornata. Il limite per i video è in "videoMaxMB".
+     ------------------------------------------------------------------- */
+
+  fotoOspiti: {
+    titolo: "Condividete le vostre foto!",
+    testo: "Caricate qui le foto e i video della giornata: li raccoglieremo tutti in un unico album.",
+    etichettaNome: "Il tuo nome (facoltativo)",
+    pulsanteScegli: "Scegli foto o video",
+    // Testo del pulsante di invio: "N" viene sostituito dal numero di file scelti
+    pulsanteInvia: "Invia N file",
+    // Stati mostrati accanto a ogni file
+    statoAttesa: "In attesa",
+    statoCaricamento: "Caricamento…",
+    statoCaricato: "Caricato ✓",
+    statoErrore: "Errore",
+    // Dimensione massima di un video, in megabyte (le foto vengono ridotte da sole)
+    videoMaxMB: 40,
+    videoTroppoGrande: "Video troppo grande: inviatecelo su WhatsApp",
+    messaggioSuccesso: "Grazie! Le vostre foto sono arrivate.",
+    messaggioErrore: "Alcuni file non sono stati caricati. Riprovate tra qualche minuto o inviateceli su WhatsApp.",
+    caricaAltre: "Carica altre",
+    nonAttivo: "Caricamento non ancora attivo: riprovate più tardi."
   },
 
   /* -------------------------------------------------------------------

@@ -569,6 +569,79 @@ textarea { resize: vertical; }
 }
 .footer p { margin: 0; }
 
+/* ---------- Pagina foto degli ospiti (foto.html) ---------- */
+.foto-pagina { min-height: 100vh; display: flex; flex-direction: column; }
+.foto {
+  flex: 1;
+  width: min(560px, 100% - 2.5rem);
+  margin: 0 auto;
+  padding: 2.5rem 0 3rem;
+  text-align: center;
+}
+.foto__brand {
+  font-family: var(--font-script);
+  font-size: 3rem;
+  color: var(--sage);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
+.foto__titolo {
+  font-size: clamp(1.5rem, 5vw, 2.1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 1rem;
+}
+.foto__titolo::after {
+  content: "";
+  display: block;
+  width: 56px; height: 1px;
+  background: var(--sage);
+  margin: 0.9rem auto 0;
+}
+.foto__testo { margin: 0 auto 1.75rem; }
+.foto__avviso {
+  background: rgba(155,59,46,0.08);
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin: 0 0 1.5rem;
+}
+.foto .form { text-align: left; }
+.foto__scegli {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.15rem;
+  padding: 1em 1.2em;
+  margin: 0.5rem 0 1.25rem;
+}
+.foto__scegli.is-disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+.foto__lista { list-style: none; margin: 0 0 1.25rem; padding: 0; }
+.foto__voce {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.1rem 0.75rem;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  background: var(--white);
+  border: 1px solid rgba(111,125,85,0.22);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+.foto__nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.foto__peso { grid-column: 1; font-size: 0.85rem; color: var(--sage); }
+.foto__stato { grid-column: 2; grid-row: 1 / span 2; font-size: 0.95rem; color: var(--sage-dark); text-align: right; white-space: nowrap; }
+/* file rifiutato (es. video troppo grande): il messaggio è lungo e va su una riga tutta sua */
+.foto__voce--saltato .foto__stato { grid-column: 1 / -1; grid-row: 3; text-align: left; white-space: normal; margin-top: 0.2rem; }
+.foto__stato--caricamento { color: var(--sage); font-style: italic; }
+.foto__stato--ok { color: var(--sage-dark); font-weight: 500; }
+.foto__stato--errore { color: var(--error); }
+.foto__invia { display: block; width: 100%; text-align: center; }
+.foto__altre { text-align: center; margin-top: 0.75rem; }
+.foto__altre a { letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.95rem; }
+
 /* ---------- Stampa ---------- */
 @media print {
   .gate, .nav, .nav__toggle, .btn, #rsvp, .map, .countdown, .lightbox { display: none !important; }
