@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Condividete le vostre foto</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%236f7d55' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body class="foto-pagina">
+
+  <!-- Pagina senza parola d'ordine: gli ospiti arrivano qui dal QR code sui tavoli -->
+  <main class="foto">
+    <p class="foto__brand" id="foto-brand"></p>
+    <h1 class="foto__titolo" id="foto-titolo"></h1>
+    <p class="foto__testo" id="foto-testo"></p>
+
+    <!-- Avviso mostrato finché fotoScriptUrl in content.js non è impostato -->
+    <p class="foto__avviso" id="foto-avviso" role="alert" hidden></p>
+
+    <form id="foto-form" class="form" novalidate>
+      <div class="form__row">
+        <label for="foto-autore" id="foto-autore-label"></label>
+        <input type="text" id="foto-autore" name="autore" autocomplete="name" maxlength="60">
+      </div>
+
+      <!-- Il <label> è il pulsante grande: su telefono apre fotocamera/galleria -->
+      <input type="file" id="foto-file" accept="image/*,video/*" multiple class="visually-hidden">
+      <label for="foto-file" class="btn btn--primary foto__scegli" id="foto-scegli"></label>
+
+      <ul class="foto__lista" id="foto-lista" aria-live="polite"></ul>
+
+      <button type="submit" class="btn btn--primary foto__invia" id="foto-invia" hidden></button>
+      <p id="foto-feedback" class="form__feedback" role="status" aria-live="polite"></p>
+      <p class="foto__altre" id="foto-altre-box" hidden><a href="foto.html" id="foto-altre"></a></p>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p id="footer-testo"></p>
+  </footer>
+
+  <script src="js/content.js?v=3"></script>
+  <script src="js/foto.js?v=3"></script>
+</body>
+</html>
